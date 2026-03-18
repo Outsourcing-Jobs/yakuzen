@@ -1,0 +1,190 @@
+@import url("https://media.vneconomy.vn/images/upload/2024/10/31/xaydungtnkhlogis.jpg");
+
+:root {
+  --primary-green: #10b981;
+  --dark-green: #059669;
+  --bg-soft: #f8fafc;
+  --text-main: #0f172a;
+  --text-sub: #64748b;
+  --white: #ffffff;
+}
+
+.reg-page-wrapper {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background-color: var(--white);
+}
+
+/* Side Banner */
+.reg-side-banner {
+  flex: 1;
+  background:
+    linear-gradient(135deg, rgba(101, 104, 103, 0.9), rgba(149, 152, 151, 0.9)),
+    url("https://media.vneconomy.vn/images/upload/2024/10/31/xaydungtnkhlogis.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  color: white;
+}
+
+.banner-text h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.banner-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 400px;
+}
+
+.banner-features {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 50px;
+  width: fit-content;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Form Section */
+.reg-form-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg-soft);
+}
+
+.reg-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 0 40px;
+  background: var(--white);
+  border-radius: 24px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+}
+
+.reg-logo-area {
+  display: flex;
+  justify-content: center;
+}
+
+.reg-logo-area img {
+  height: 90px;
+}
+
+.reg-header h1 {
+  font-size: 1.75rem;
+  color: var(--text-main);
+}
+
+.reg-header p {
+  color: var(--text-sub);
+  margin-bottom: 32px;
+  font-size: 0.95rem;
+}
+
+.reg-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reg-terms {
+  font-size: 0.8rem;
+  color: var(--text-sub);
+  line-height: 1.4;
+}
+
+.reg-terms span {
+  color: var(--primary-green);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.reg-btn-submit {
+  background-color: var(--primary-green);
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.reg-btn-submit:hover:not(:disabled) {
+  background-color: var(--dark-green);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+.reg-btn-submit:disabled {
+  background-color: var(--text-sub);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.reg-footer {
+  text-align: center;
+  margin-top: 16px;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  color: var(--text-sub);
+}
+
+.reg-footer a {
+  color: var(--primary-green);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.custom-light-input label {
+  color: #334155 !important;
+  font-weight: 600;
+  display: block;
+}
+
+.custom-light-input input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.custom-light-input input:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1) !important;
+  outline: none;
+}
+
+.custom-light-input input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .reg-side-banner {
+    display: none;
+  }
+  .reg-form-container {
+    padding: 20px;
+  }
+}

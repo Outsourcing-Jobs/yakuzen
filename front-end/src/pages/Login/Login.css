@@ -1,0 +1,188 @@
+@import url("https://media.vneconomy.vn/images/upload/2024/10/31/xaydungtnkhlogis.jpg");
+
+:root {
+  --p-green: #10b981;
+  --p-green-dark: #059669;
+  --bg-light: #f1f5f9;
+  --text-dark: #1e293b;
+  --text-gray: #64748b;
+  --white: #ffffff;
+  --shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+.login-wrapper {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background-color: var(--white);
+}
+
+/* Side Image - Chỉ hiện trên Desktop */
+.login-side-image {
+  flex: 1.2;
+  background:
+    linear-gradient(135deg, rgba(101, 104, 103, 0.9), rgba(149, 152, 151, 0.9)),
+    url("https://media.vneconomy.vn/images/upload/2024/10/31/xaydungtnkhlogis.jpg");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  color: white;
+}
+
+.side-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.side-content p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* Form Section */
+.login-side-form {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.brand-logo {
+  display: flex;
+  justify-content: center;
+  /* margin-bottom: 2rem; */
+}
+
+.brand-logo img {
+  height: 100px;
+}
+
+.login-header h2 {
+  font-size: 1.875rem;
+  color: var(--text-dark);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.login-header p {
+  color: var(--text-gray);
+  margin-bottom: 2rem;
+}
+
+.form-wrapper > div {
+  margin-bottom: 1.25rem;
+}
+
+/* Tinh chỉnh Input (Nếu component TextInput hỗ trợ style) */
+.form-wrapper label {
+  font-weight: 500;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-gray);
+  cursor: pointer;
+}
+
+.form-options a {
+  color: var(--p-green);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-primary {
+  width: 100%;
+  background-color: var(--p-green);
+  color: white;
+  padding: 0.875rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--p-green-dark);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.footer-link {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--text-gray);
+}
+
+.footer-link a {
+  color: var(--p-green);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.custom-light-input label {
+  color: #334155 !important;
+  font-weight: 600;
+  display: block;
+}
+
+.custom-light-input input {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #e2e8f0 !important;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.custom-light-input input:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1) !important;
+  outline: none;
+}
+
+.custom-light-input input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .login-side-image {
+    display: none;
+  }
+  .login-side-form {
+    background-color: var(--bg-light);
+  }
+  .login-card {
+    background: white;
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+}
