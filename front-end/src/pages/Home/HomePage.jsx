@@ -34,13 +34,37 @@ const recentWorks = [
         id: 3,
         title: 'Spike & Shade',
         tag: 'ILLUSTRATION',
-        imgUrl: 'https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943',
+        imgUrl: 'https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943',
     },
     {
         id: 4,
         title: 'Stray Dogs',
         tag: 'MODEL ART',
         imgUrl: 'https://framerusercontent.com/images/nBO5THno7iF7y7SsHfiRhBfzBY.jpg?width=700&height=943',
+    },
+    {
+        id: 5,
+        title: 'Kuro Inu',
+        tag: 'ILLUSTRATION',
+        imgUrl: 'https://framerusercontent.com/images/Z4f2yoBCIPHZKfGQucimh20zII.jpg?width=700&height=943',
+    },
+    {
+        id: 6,
+        title: 'Chain Break',
+        tag: 'MODEL ART',
+        imgUrl: 'https://framerusercontent.com/images/tkuH0utDRddtYbhdVdEr7LEWOdI.jpg?width=700&height=943',
+    },
+    {
+        id: 7,
+        title: 'Spike & Shade',
+        tag: 'ILLUSTRATION',
+        imgUrl: 'https://framerusercontent.com/images/R9rHxdVUyq84XXeT64gMRwbWZo.jpg?width=700&height=943',
+    },
+    {
+        id: 8,
+        title: 'Stray Dogs',
+        tag: 'MODEL ART',
+        imgUrl: 'https://framerusercontent.com/images/SqKzpcHvoIM2ldfdVPIjfVyr6I.jpg?width=700&height=943',
     },
 ];
 
@@ -144,11 +168,13 @@ const HomePage = () => {
                     </div>
 
                     <nav className="hp-categories">
-                        <Link key={cat.name} to={cat.path} className="hp-cat-link">
-                            <span className="hp-cat-link__num">0{i + 1}</span>
-                            <span className="hp-cat-link__label">{cat.name}</span>
-                            <span className="hp-cat-link__arrow">→</span>
-                        </Link>
+                        {categories.map((cat, i) => (
+                            <Link key={cat.name} to={cat.path} className="hp-cat-link">
+                                <span className="hp-cat-link__num">0{i + 1}</span>
+                                <span className="hp-cat-link__label">{cat.name}</span>
+                                <span className="hp-cat-link__arrow">→</span>
+                            </Link>
+                        ))}
                     </nav>
 
                     <ChainDecor />
@@ -184,7 +210,7 @@ const HomePage = () => {
                         slidesToScroll={1}
                         infinite
                         autoplay
-                        autoplaySpeed={3000}
+                        autoplaySpeed={2500}
                         responsive={[
                             { breakpoint: 960, settings: { slidesToShow: 2 } },
                             { breakpoint: 600, settings: { slidesToShow: 1 } },

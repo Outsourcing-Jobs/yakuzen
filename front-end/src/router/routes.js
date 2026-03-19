@@ -4,7 +4,6 @@ import Login from '../pages/Login/Login';
 import NotFoundPage from '../pages/NotPoundPage/NotPoundPage';
 import Register from '../pages/Register/Register';
 import TosPage from '../pages/TOS/TosPage';
-import TosPageV2 from '../pages/TOS/TosPageV2';
 
 export const langRoutes = [
     {
@@ -16,12 +15,6 @@ export const langRoutes = [
     {
         path: '/tos',
         page: TosPage,
-        isShowHeader: false,
-        footerType: 'shipping',
-    },
-    {
-        path: '/tos-v2',
-        page: TosPageV2,
         isShowHeader: false,
         footerType: 'shipping',
     },
