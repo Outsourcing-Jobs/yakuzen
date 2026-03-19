@@ -88,7 +88,8 @@ const HomePage = () => {
                         <div className="hp-avatar-ring hp-avatar-ring--2" />
                         <div className="hp-avatar">
                             <span className="hp-avatar__placeholder">
-                                <img src="https://i.redd.it/gs5zwxdzpnog1.jpeg" alt="" />
+                                {/* <img src="https://i.redd.it/gs5zwxdzpnog1.jpeg" alt="" /> */}
+                                <img src="https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7" />
                             </span>
                         </div>
                         {/* paw print deco */}
