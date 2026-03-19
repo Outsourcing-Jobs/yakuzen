@@ -1,0 +1,97 @@
+@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap");
+
+/* ── CSS Variables ── */
+:root {
+  --red: #cc0000;
+  --red-glow: #ff1a1a;
+  --dark: #0a0a0a;
+  --dark2: #141414;
+  --dark3: #1e1e1e;
+  --gray: #2a2a2a;
+  --gray2: #444;
+  --white: #fff;
+  --silver: #aaaaaa;
+  --chain: #555;
+  --spike: #cc0000;
+  --font-display: "Bebas Neue", "Black Han Sans", sans-serif;
+  --font-body: "Noto Sans JP", sans-serif;
+  --transition: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* ================================================
+   ROOT WRAPPER
+   ================================================ */
+.hp-root {
+  background-color: var(--dark);
+  color: var(--white);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ── Noise Texture ── */
+.hp-noise {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* ── Studs background ── */
+.hp-studs {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 40px;
+  padding: 40px;
+  z-index: 0;
+  pointer-events: none;
+}
+.stud {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gray);
+  box-shadow: 0 0 0 1px var(--gray2);
+  justify-self: center;
+  align-self: center;
+  animation: stud-pulse 3s ease-in-out infinite;
+}
+.stud:nth-child(3n) {
+  animation-delay: 0.5s;
+}
+.stud:nth-child(5n) {
+  animation-delay: 1.2s;
+}
+.stud:nth-child(7n) {
+  animation-delay: 2s;
+}
+@keyframes stud-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.4);
+    background: var(--red);
+  }
+}
