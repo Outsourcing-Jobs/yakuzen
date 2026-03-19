@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Carousel } from 'antd';
 import './HomePage.css';
 import GlobalBackground from '../../components/Default/GlobalBackground';
+import { Link } from 'react-router-dom';
 
 const socialLinks = [
     { icon: '𝕏', label: 'Twitter', href: 'https://x.com/yakuzen345' },
@@ -10,7 +11,11 @@ const socialLinks = [
     //   { icon: "⬡", label: "Discord", href: "#" },
 ];
 
-const categories = ['TOS', 'MODEL ART', 'ILLUSTRATION'];
+const categories = [
+    { name: 'TOS', path: '/tos' },
+    { name: 'MODEL ART', path: '/model-art' },
+    { name: 'ILLUSTRATION', path: '/illustration' },
+];
 
 const recentWorks = [
     {
@@ -139,13 +144,11 @@ const HomePage = () => {
                     </div>
 
                     <nav className="hp-categories">
-                        {categories.map((cat, i) => (
-                            <a key={cat} href={`${cat.toLowerCase().replace(' ', '-')}`} className="hp-cat-link">
-                                <span className="hp-cat-link__num">0{i + 1}</span>
-                                <span className="hp-cat-link__label">{cat}</span>
-                                <span className="hp-cat-link__arrow">→</span>
-                            </a>
-                        ))}
+                        <Link key={cat.name} to={cat.path} className="hp-cat-link">
+                            <span className="hp-cat-link__num">0{i + 1}</span>
+                            <span className="hp-cat-link__label">{cat.name}</span>
+                            <span className="hp-cat-link__arrow">→</span>
+                        </Link>
                     </nav>
 
                     <ChainDecor />
