@@ -1,97 +1,101 @@
-@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap");
+/* GlobalBackground.css */
 
-/* ── CSS Variables ── */
 :root {
-  --red: #cc0000;
-  --red-glow: #ff1a1a;
-  --dark: #0a0a0a;
-  --dark2: #141414;
-  --dark3: #1e1e1e;
-  --gray: #2a2a2a;
-  --gray2: #444;
-  --white: #fff;
-  --silver: #aaaaaa;
-  --chain: #555;
-  --spike: #cc0000;
-  --font-display: "Bebas Neue", "Black Han Sans", sans-serif;
-  --font-body: "Noto Sans JP", sans-serif;
-  --transition: cubic-bezier(0.23, 1, 0.32, 1);
+  --bg-paw-color: rgba(230, 0, 0, 0.65);
+  --bg-bubble-color: rgba(230, 0, 0, 0.15);
+  --bg-bubble-border: rgba(230, 0, 0, 0.4);
+  --cursor-glow-color: rgba(200, 0, 0, 0.25); 
 }
 
-/* ── Reset ── */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-html {
-  scroll-behavior: smooth;
-}
-
-/* ================================================
-   ROOT WRAPPER
-   ================================================ */
-.hp-root {
-  background-color: var(--dark);
-  color: var(--white);
-  font-family: var(--font-body);
-  min-height: 100vh;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* ── Noise Texture ── */
-.hp-noise {
+.global-bg-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
   pointer-events: none;
-  position: fixed;
+}
+
+.bg-noise {
+  position: absolute;
   inset: 0;
-  z-index: 999;
-  opacity: 0.04;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
+  z-index: 1;
 }
 
-/* ── Studs background ── */
-.hp-studs {
-  position: fixed;
-  inset: 0;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 40px;
-  padding: 40px;
-  z-index: 0;
-  pointer-events: none;
+.bg-parallax-layer {
+  position: absolute;
+  top: -10%; 
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  /* Removed transition because requestAnimationFrame updates this every frame */
+  will-change: transform;
 }
-.stud {
-  width: 6px;
-  height: 6px;
+
+.paws-layer {
+  z-index: 4;
+}
+
+.bubbles-layer {
+  z-index: 2;
+}
+
+.cursor-glow {
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  width: 80vw;
+  height: 80vh;
+  background: radial-gradient(circle, var(--cursor-glow-color) 0%, transparent 60%);
   border-radius: 50%;
-  background: var(--gray);
-  box-shadow: 0 0 0 1px var(--gray2);
-  justify-self: center;
-  align-self: center;
-  animation: stud-pulse 3s ease-in-out infinite;
+  z-index: 3;
+  /* Removed transition because requestAnimationFrame updates this every frame */
+  will-change: transform;
 }
-.stud:nth-child(3n) {
-  animation-delay: 0.5s;
+
+@keyframes floatDrift {
+  0% { transform: translateY(0) translateX(0) rotate(0deg); }
+  25% { transform: translateY(-80px) translateX(40px) rotate(15deg); }
+  50% { transform: translateY(-160px) translateX(-30px) rotate(0deg); }
+  75% { transform: translateY(-80px) translateX(-50px) rotate(-15deg); }
+  100% { transform: translateY(0) translateX(0) rotate(0deg); }
 }
-.stud:nth-child(5n) {
-  animation-delay: 1.2s;
+
+@keyframes floatDriftFast {
+  0% { transform: translateY(0) translateX(0) scale(1); }
+  33% { transform: translateY(-120px) translateX(60px) scale(1.1); }
+  66% { transform: translateY(-60px) translateX(-60px) scale(0.9); }
+  100% { transform: translateY(0) translateX(0) scale(1); }
 }
-.stud:nth-child(7n) {
-  animation-delay: 2s;
+
+.float-drift {
+  animation: floatDrift linear infinite;
+  will-change: transform;
 }
-@keyframes stud-pulse {
-  0%,
-  100% {
-    opacity: 0.3;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.8;
-    transform: scale(1.4);
-    background: var(--red);
-  }
+
+.float-drift-fast {
+  animation: floatDriftFast linear infinite;
+  will-change: transform;
+}
+
+.paw-icon {
+  position: absolute;
+  color: var(--bg-paw-color);
+  user-select: none;
+  /* Replaced drop-shadow with text-shadow for massive performance gain */
+  text-shadow: 0 0 16px rgba(255, 30, 30, 0.8);
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--bg-bubble-color);
+  border: 1px solid var(--bg-bubble-border);
+  box-shadow: inset 0 0 20px rgba(255, 50, 50, 0.3), 0 0 10px rgba(255, 0, 0, 0.2);
+  /* Removed heavy backdrop-filter blur for scrolling performance */
 }

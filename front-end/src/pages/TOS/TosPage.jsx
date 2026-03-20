@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Tos.css';
+import GlobalBackground from '../../components/Default/GlobalBackground';
 
 // ── Data ──────────────────────────────────────────────
 const TOS_SECTIONS = [
@@ -145,133 +146,71 @@ const TOS_SECTIONS = [
     },
 ];
 
-// ── Chain component ──────────────────────────────────
-const ChainStrip = ({ count = 40 }) => (
-    <div className="tos-chain-strip" aria-hidden="true">
-        {Array.from({ length: count }).map((_, i) => (
-            <span key={i} className="tos-chain-link" />
-        ))}
-    </div>
-);
-
-// ── Stud bar component ───────────────────────────────
-const StudBar = ({ count = 60 }) => (
-    <div className="tos-stud-bar" aria-hidden="true">
-        {Array.from({ length: count }).map((_, i) => (
-            <span key={i} className="tos-stud" />
-        ))}
-    </div>
-);
-
-// ── Section accordion ────────────────────────────────
-const TosSection = ({ section }) => {
-    const [open, setOpen] = useState(false);
-
-    return (
-        <div className={`tos-section${open ? ' open' : ''}`}>
-            <div
-                className="tos-section-header"
-                onClick={() => setOpen(v => !v)}
-                role="button"
-                aria-expanded={open}
-                tabIndex={0}
-                onKeyDown={e => e.key === 'Enter' && setOpen(v => !v)}
-            >
-                <span className="tos-section-num">{section.num}</span>
-                <span>
-                    <div className="tos-section-title">
-                        {section.icon} {section.title}
-                    </div>
-                    <div className="tos-section-jp">{section.jp}</div>
-                </span>
-                <span className="tos-toggle-icon" aria-hidden="true">
-                    ✕
-                </span>
-            </div>
-            <div className="tos-section-body" aria-hidden={!open}>
-                {section.content}
-            </div>
-        </div>
-    );
-};
-
-// ── Divider ──────────────────────────────────────────
-const Divider = ({ icon = '✦' }) => (
-    <div className="tos-divider" aria-hidden="true">
-        <span className="tos-divider-line" />
-        <span className="tos-divider-icon">{icon}</span>
-        <span className="tos-divider-line right" />
-    </div>
-);
-
-// ── Main Page ────────────────────────────────────────
 const TosPage = () => {
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setLoaded(true);
+        }, 50);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
-        <div className="tos-root">
-            {/* HEADER */}
-            <header className="tos-header">
-                <div className="tos-kanji-bg" aria-hidden="true">
-                    規約
+        <div className={`tos-container ${loaded ? 'is-loaded' : ''}`}>
+            <GlobalBackground />
+            <div className="tos-background-ambient"></div>
+
+            <header className="tos-header-clean">
+                <div className="tos-header-watermark">規約</div>
+                <div className="tos-header-content">
+                    {/* <div className="tos-badge">v2.0 • OFFICIAL DOCUMENT</div> */}
+                    <h1 className="tos-title">
+                        TERMS <span>OF SERVICE</span>
+                    </h1>
+                    <p className="tos-subtitle">Please read these terms carefully before proceeding.</p>
                 </div>
-                <div className="tos-header-inner">
-                    <div className="tos-icon-wrap" aria-hidden="true">
-                        🐾
-                    </div>
-                    <div className="tos-header-text">
-                        <p className="tos-eyebrow">◈ OFFICIAL DOCUMENT · v2.0</p>
-                        <h1 className="tos-main-title">
-                            TERMS <span>OF SERVICE</span>
-                        </h1>
-                        <p className="tos-subtitle">利用規約 — READ BEFORE YOU PROCEED</p>
-                    </div>
-                </div>
-                {/* <ChainStrip count={50} /> */}
             </header>
 
-            {/* STUD BAR */}
-            {/* <StudBar count={80} /> */}
-
-            {/* CONTENT */}
-            <main className="tos-content">
-                {/* Meta bar */}
-                <div className="tos-meta-bar">
-                    <span className="dot" />
-                    <span>LAST UPDATED: 2025-06-01</span>
-                    <span style={{ marginLeft: 'auto' }}>EFFECTIVE IMMEDIATELY</span>
+            <main className="tos-main-content">
+                <div className="tos-meta-info fade-in-up">
+                    <div className="meta-item">
+                        <span className="pulse-dot"></span>
+                        <span>LAST UPDATED: 2025-06-01</span>
+                    </div>
+                    <div className="meta-item effective">EFFECTIVE IMMEDIATELY</div>
                 </div>
 
-                {/* Accordion sections */}
-                {TOS_SECTIONS.map((s, i) => (
-                    <React.Fragment key={s.num}>
-                        <TosSection section={s} />
-                        {i < TOS_SECTIONS.length - 1 && i % 2 === 1 && <Divider icon={i === 1 ? '🐾' : '⛓'} />}
-                    </React.Fragment>
-                ))}
+                <div className="tos-single-card fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    {TOS_SECTIONS.map((s, i) => (
+                        <div key={s.num} className="tos-content-block">
+                            <div className="tos-block-header">
+                                <span className="tos-block-num">{s.num}</span>
+                                <div className="tos-block-title-wrapper">
+                                    <h2 className="tos-block-title">{s.icon} {s.title}</h2>
+                                    <span className="tos-block-jp">{s.jp}</span>
+                                </div>
+                            </div>
+                            <div className="tos-block-body">
+                                {s.content}
+                            </div>
+                            {i < TOS_SECTIONS.length - 1 && <hr className="tos-divider" />}
+                        </div>
+                    ))}
+                </div>
 
-                <Divider icon="⚔️" />
-
-                {/* Bottom notice */}
-                <div className="tos-callout" style={{ marginTop: 8 }}>
-                    <span className="tos-callout-icon">📜</span>
+                {/* <div className="tos-agreement-footer fade-in-up" style={{ animationDelay: '0.4s' }}>
+                    <div className="agreement-icon">📜</div>
                     <p>
                         These terms constitute the <strong>entire agreement</strong> between you and us regarding use of
                         the service. If any provision is found invalid, remaining provisions continue in full force.
                     </p>
-                </div>
+                </div> */}
             </main>
 
-            {/* STUD BAR (bottom) */}
-            {/* <StudBar count={80} /> */}
-
-            {/* FOOTER */}
-            <footer className="tos-footer">
-                <div className="tos-footer-logo">◈ YAKUZEN ◈</div>
-                <p className="tos-footer-text">© 2026 ALL RIGHTS RESERVED · UNAUTHORIZED USE WILL BE HUNTED DOWN</p>
-                <div className="tos-footer-studs" aria-hidden="true">
-                    {Array.from({ length: 11 }).map((_, i) => (
-                        <span key={i} className="tos-footer-stud" />
-                    ))}
-                </div>
+            <footer className="tos-simple-footer">
+                <div className="footer-logo">◈ YAKUZEN ◈</div>
+                <p>© 2026 ALL RIGHTS RESERVED</p>
             </footer>
         </div>
     );

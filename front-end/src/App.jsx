@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Default from './components/Default/Default';
 import { globalRoutes, langRoutes } from './router/routes';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import GlobalMenu from './components/Default/GlobalMenu';
 
 function App() {
     const getInitialAdminState = () => {
@@ -24,6 +25,7 @@ function App() {
 
     return (
         <Router>
+            <GlobalMenu />
             <Suspense fallback={<div>Loading...</div>}>
                 <Routes>
                     {langRoutes.map(({ path, page: Page, isPrivate, isShowHeader, footerType }, idx) => {
