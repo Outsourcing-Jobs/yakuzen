@@ -199,13 +199,13 @@ const TosPage = () => {
                     ))}
                 </div>
 
-                <div className="tos-agreement-footer fade-in-up" style={{ animationDelay: '0.4s' }}>
+                {/* <div className="tos-agreement-footer fade-in-up" style={{ animationDelay: '0.4s' }}>
                     <div className="agreement-icon">📜</div>
                     <p>
                         These terms constitute the <strong>entire agreement</strong> between you and us regarding use of
                         the service. If any provision is found invalid, remaining provisions continue in full force.
                     </p>
-                </div>
+                </div> */}
             </main>
 
             <footer className="tos-simple-footer">
