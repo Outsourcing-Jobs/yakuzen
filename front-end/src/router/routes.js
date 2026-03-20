@@ -1,4 +1,5 @@
 // routes.js
+import EdgyHome from '../pages/EdgyHome/EdgyHome';
 import HomePage from '../pages/Home/HomePage';
 import Login from '../pages/Login/Login';
 import NotFoundPage from '../pages/NotPoundPage/NotPoundPage';
@@ -15,6 +16,12 @@ export const langRoutes = [
     {
         path: '/tos',
         page: TosPage,
+        isShowHeader: false,
+        footerType: 'shipping',
+    },
+    {
+        path: '/model-art',
+        page: EdgyHome,
         isShowHeader: false,
         footerType: 'shipping',
     },

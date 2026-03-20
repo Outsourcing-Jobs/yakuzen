@@ -1,219 +1,418 @@
-import React, { useState, useEffect } from 'react';
-import './Tos.css';
-import GlobalBackground from '../../components/Default/GlobalBackground';
+import { useEffect, useRef } from "react";
+import "./Tos.css";
 
-// ── Data ──────────────────────────────────────────────
-const TOS_SECTIONS = [
-    {
-        num: '01',
-        title: 'Acceptance of Terms',
-        jp: '利用規約への同意',
-        icon: '⛓️',
-        content: (
-            <>
-                <p>
-                    By accessing or using this platform you confirm that you have read, understood, and agree to be
-                    bound by these Terms of Service in their entirety. If you do not agree, please{' '}
-                    <strong>exit immediately</strong>.
-                </p>
-                <p>
-                    We reserve the right to modify these terms at any time. Continued use after changes constitutes
-                    acceptance. It is your responsibility to review this document periodically.
-                </p>
-                <div className="tos-tags">
-                    {['#binding-contract', '#all-users', '#no-exceptions'].map(t => (
-                        <span className="tos-tag" key={t}>
-                            {t}
-                        </span>
-                    ))}
-                </div>
-            </>
-        ),
-    },
-    {
-        num: '02',
-        title: 'User Conduct',
-        jp: 'ユーザーの行動規範',
-        icon: '🐕',
-        content: (
-            <>
-                <p>
-                    Users must not engage in any behavior that is unlawful, harmful, threatening, abusive, harassing, or
-                    otherwise objectionable. This includes but is not limited to: spam, malware distribution,
-                    impersonation, or any act that disrupts the integrity of the platform.
-                </p>
-                <div className="tos-callout">
-                    <span className="tos-callout-icon">⚠️</span>
-                    <p>
-                        Violations may result in <strong>immediate permanent suspension</strong> without prior notice or
-                        refund. We bite back.
-                    </p>
-                </div>
-                <p>You are solely responsible for all content you post, upload, or transmit through our services.</p>
-            </>
-        ),
-    },
-    {
-        num: '03',
-        title: 'Intellectual Property',
-        jp: '知的財産権',
-        icon: '🎨',
-        content: (
-            <>
-                <p>
-                    All original content, artwork, logos, and branding elements on this platform are the exclusive
-                    property of the service owner and are protected under applicable copyright and trademark laws.
-                </p>
-                <p>
-                    You may not reproduce, distribute, or create derivative works from any platform content without{' '}
-                    <strong>explicit written permission</strong>. Unauthorized use will be pursued to the fullest extent
-                    of the law.
-                </p>
-                <div className="tos-tags">
-                    {['#copyright', '#no-resale', '#art-protected'].map(t => (
-                        <span className="tos-tag" key={t}>
-                            {t}
-                        </span>
-                    ))}
-                </div>
-            </>
-        ),
-    },
-    {
-        num: '04',
-        title: 'Privacy & Data',
-        jp: 'プライバシーとデータ',
-        icon: '🔐',
-        content: (
-            <>
-                <p>
-                    We collect only the data necessary to provide and improve our services. Your personal information
-                    will never be sold to third parties. Refer to our <strong>Privacy Policy</strong> for complete
-                    details on how your data is stored, processed, and protected.
-                </p>
-                <p>
-                    By using the platform you consent to the collection of usage analytics, cookies, and device
-                    information as described therein.
-                </p>
-            </>
-        ),
-    },
-    {
-        num: '05',
-        title: 'Limitation of Liability',
-        jp: '責任の制限',
-        icon: '🛡️',
-        content: (
-            <>
-                <p>
-                    To the maximum extent permitted by law, we shall not be liable for any indirect, incidental,
-                    special, or consequential damages arising from your use of — or inability to use — the platform.
-                </p>
-                <div className="tos-callout">
-                    <span className="tos-callout-icon">💀</span>
-                    <p>
-                        The platform is provided <strong>"as is"</strong> without warranties of any kind, express or
-                        implied. Use at your own risk.
-                    </p>
-                </div>
-            </>
-        ),
-    },
-    {
-        num: '06',
-        title: 'Termination',
-        jp: 'アカウントの終了',
-        icon: '⚔️',
-        content: (
-            <>
-                <p>
-                    We reserve the right to suspend or terminate your access to the platform at our sole discretion,
-                    with or without cause, and without prior notice.
-                </p>
-                <p>
-                    Upon termination all rights granted to you will immediately cease. Sections of these terms that by
-                    their nature should survive termination shall continue in full force and effect.
-                </p>
-                <div className="tos-tags">
-                    {['#no-refund', '#immediate-effect', '#all-rights-reserved'].map(t => (
-                        <span className="tos-tag" key={t}>
-                            {t}
-                        </span>
-                    ))}
-                </div>
-            </>
-        ),
-    },
+/* ══════════════════════════════════════════════
+   CHIBI DOG PAW — chân cún dễ thương
+══════════════════════════════════════════════ */
+const DogPaw = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 100" fill="none">
+    {/* Main pad — rounded big shape */}
+    <ellipse cx="45" cy="68" rx="24" ry="20" fill="rgba(200,16,46,0.52)" />
+    {/* Highlight on pad */}
+    <ellipse cx="39" cy="62" rx="9" ry="6" fill="rgba(255,255,255,0.07)" />
+    {/* 4 toe beans */}
+    <ellipse cx="18" cy="44" rx="9" ry="11" fill="rgba(200,16,46,0.44)" />
+    <ellipse cx="34" cy="36" rx="9" ry="11" fill="rgba(200,16,46,0.44)" />
+    <ellipse cx="52" cy="36" rx="9" ry="11" fill="rgba(200,16,46,0.44)" />
+    <ellipse cx="68" cy="44" rx="8" ry="10" fill="rgba(200,16,46,0.44)" />
+    {/* Tiny highlight on each toe */}
+    <ellipse cx="15" cy="40" rx="3.5" ry="4" fill="rgba(255,255,255,0.08)" />
+    <ellipse cx="31" cy="33" rx="3.5" ry="4" fill="rgba(255,255,255,0.08)" />
+    <ellipse cx="49" cy="33" rx="3.5" ry="4" fill="rgba(255,255,255,0.08)" />
+    <ellipse cx="65" cy="40" rx="3" ry="4" fill="rgba(255,255,255,0.08)" />
+    {/* Claws */}
+    <path
+      d="M13 34 Q10 26 14 23"
+      stroke="rgba(200,16,46,0.5)"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      fill="none"
+    />
+    <path
+      d="M29 27 Q28 18 32 15"
+      stroke="rgba(200,16,46,0.5)"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      fill="none"
+    />
+    <path
+      d="M48 27 Q49 18 53 16"
+      stroke="rgba(200,16,46,0.5)"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      fill="none"
+    />
+    <path
+      d="M65 34 Q68 26 72 24"
+      stroke="rgba(200,16,46,0.5)"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      fill="none"
+    />
+  </svg>
+);
+
+/* ══════════════════════════════════════════════
+   CHIBI CAT PAW — chân mèo dễ thương
+══════════════════════════════════════════════ */
+const CatPaw = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 100" fill="none">
+    {/* Main pad — heart-ish shape */}
+    <path
+      d="M45 82 C28 72 16 56 22 44 C26 36 34 36 40 41 L45 46 L50 41 C56 36 64 36 68 44 C74 56 62 72 45 82 Z"
+      fill="rgba(200,16,46,0.52)"
+    />
+    {/* Pad highlight */}
+    <ellipse cx="38" cy="55" rx="8" ry="6" fill="rgba(255,255,255,0.07)" />
+    {/* 3 toe beans — cats have 3 visible front */}
+    <ellipse
+      cx="20"
+      cy="32"
+      rx="9"
+      ry="11"
+      fill="rgba(200,16,46,0.44)"
+      transform="rotate(-12 20 32)"
+    />
+    <ellipse cx="45" cy="25" rx="9" ry="11" fill="rgba(200,16,46,0.44)" />
+    <ellipse
+      cx="70"
+      cy="32"
+      rx="9"
+      ry="11"
+      fill="rgba(200,16,46,0.44)"
+      transform="rotate(12 70 32)"
+    />
+    {/* Highlights */}
+    <ellipse
+      cx="17"
+      cy="28"
+      rx="3.5"
+      ry="4"
+      fill="rgba(255,255,255,0.09)"
+      transform="rotate(-12 17 28)"
+    />
+    <ellipse cx="42" cy="22" rx="3.5" ry="4" fill="rgba(255,255,255,0.09)" />
+    <ellipse
+      cx="67"
+      cy="28"
+      rx="3.5"
+      ry="4"
+      fill="rgba(255,255,255,0.09)"
+      transform="rotate(12 67 28)"
+    />
+    {/* Retractable claw hints — short & curved */}
+    <path
+      d="M14 22 Q11 15 16 11"
+      stroke="rgba(200,16,46,0.45)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      fill="none"
+    />
+    <path
+      d="M42 15 Q42 7  47 5"
+      stroke="rgba(200,16,46,0.45)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      fill="none"
+    />
+    <path
+      d="M68 22 Q71 15 74 12"
+      stroke="rgba(200,16,46,0.45)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      fill="none"
+    />
+  </svg>
+);
+
+/* ══════════════════════════════════════════════
+   PAW LAYER — floating background
+══════════════════════════════════════════════ */
+const PAW_CONFIG = [
+  { type: "dog", left: "3%", dur: "15s", delay: "0s" },
+  { type: "cat", left: "87%", dur: "19s", delay: "2.5s" },
+  { type: "dog", left: "20%", dur: "17s", delay: "5s" },
+  { type: "cat", left: "65%", dur: "13s", delay: "1.2s" },
+  { type: "dog", left: "43%", dur: "21s", delay: "8s" },
+  { type: "cat", left: "11%", dur: "16s", delay: "10s" },
+  { type: "dog", left: "76%", dur: "18s", delay: "3.8s" },
+  { type: "cat", left: "54%", dur: "14s", delay: "12s" },
+  { type: "dog", left: "32%", dur: "20s", delay: "7s" },
+  { type: "cat", left: "93%", dur: "17s", delay: "14s" },
+  { type: "dog", left: "49%", dur: "22s", delay: "4.5s" },
+  { type: "cat", left: "7%", dur: "15s", delay: "16s" },
 ];
 
-const TosPage = () => {
-    const [loaded, setLoaded] = useState(false);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setLoaded(true);
-        }, 50);
-        return () => clearTimeout(timer);
-    }, []);
-
-    return (
-        <div className={`tos-container ${loaded ? 'is-loaded' : ''}`}>
-            <GlobalBackground />
-            <div className="tos-background-ambient"></div>
-
-            <header className="tos-header-clean">
-                <div className="tos-header-watermark">規約</div>
-                <div className="tos-header-content">
-                    {/* <div className="tos-badge">v2.0 • OFFICIAL DOCUMENT</div> */}
-                    <h1 className="tos-title">
-                        TERMS <span>OF SERVICE</span>
-                    </h1>
-                    <p className="tos-subtitle">Please read these terms carefully before proceeding.</p>
-                </div>
-            </header>
-
-            <main className="tos-main-content">
-                <div className="tos-meta-info fade-in-up">
-                    <div className="meta-item">
-                        <span className="pulse-dot"></span>
-                        <span>LAST UPDATED: 2025-06-01</span>
-                    </div>
-                    <div className="meta-item effective">EFFECTIVE IMMEDIATELY</div>
-                </div>
-
-                <div className="tos-single-card fade-in-up" style={{ animationDelay: '0.2s' }}>
-                    {TOS_SECTIONS.map((s, i) => (
-                        <div key={s.num} className="tos-content-block">
-                            <div className="tos-block-header">
-                                <span className="tos-block-num">{s.num}</span>
-                                <div className="tos-block-title-wrapper">
-                                    <h2 className="tos-block-title">{s.icon} {s.title}</h2>
-                                    <span className="tos-block-jp">{s.jp}</span>
-                                </div>
-                            </div>
-                            <div className="tos-block-body">
-                                {s.content}
-                            </div>
-                            {i < TOS_SECTIONS.length - 1 && <hr className="tos-divider" />}
-                        </div>
-                    ))}
-                </div>
-
-                {/* <div className="tos-agreement-footer fade-in-up" style={{ animationDelay: '0.4s' }}>
-                    <div className="agreement-icon">📜</div>
-                    <p>
-                        These terms constitute the <strong>entire agreement</strong> between you and us regarding use of
-                        the service. If any provision is found invalid, remaining provisions continue in full force.
-                    </p>
-                </div> */}
-            </main>
-
-            <footer className="tos-simple-footer">
-                <div className="footer-logo">◈ YAKUZEN ◈</div>
-                <p>© 2026 ALL RIGHTS RESERVED</p>
-            </footer>
+function PawLayer() {
+  return (
+    <div className="paw-layer" aria-hidden="true">
+      {PAW_CONFIG.map((p, i) => (
+        <div
+          key={i}
+          className="paw-wrap"
+          style={{
+            left: p.left,
+            animationDuration: p.dur,
+            animationDelay: p.delay,
+          }}
+        >
+          {p.type === "cat" ? <CatPaw /> : <DogPaw />}
         </div>
-    );
-};
+      ))}
+    </div>
+  );
+}
 
-export default TosPage;
+/* ══════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════ */
+function Diamonds() {
+  return (
+    <div className="tos-title-diamonds">
+      <span className="diamond" />
+      <span className="diamond" />
+      <span className="diamond" />
+    </div>
+  );
+}
+
+function Chain({ links = 32 }) {
+  return (
+    <div className="tos-chain">
+      {Array.from({ length: links }).map((_, i) => (
+        <span key={i} className="chain-link" />
+      ))}
+    </div>
+  );
+}
+
+function StudsRow({ count = 14 }) {
+  return (
+    <div className="tos-studs">
+      {Array.from({ length: count }).map((_, i) => (
+        <span key={i} className="stud" />
+      ))}
+    </div>
+  );
+}
+
+function Divider() {
+  return (
+    <div className="tos-divider">
+      <span className="tos-divider-line" />
+      <span className="tos-divider-dot" />
+      <span className="tos-divider-line" />
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   useReveal hook
+══════════════════════════════════════════════ */
+function useReveal(margin = "-50px") {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          el.classList.add("visible");
+          obs.unobserve(el);
+        }
+      },
+      { rootMargin: margin },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [margin]);
+  return ref;
+}
+
+/* ══════════════════════════════════════════════
+   SECTION: IMPORTANT RULES
+   — prose slide, không phải từng dòng hộp
+══════════════════════════════════════════════ */
+function ImportantRules() {
+  const ref = useReveal();
+  return (
+    <section className="tos-section" ref={ref}>
+      <h2 className="tos-section-title">
+        <span className="tos-section-badge">READ FIRST</span>
+        IMPORTANT RULES
+      </h2>
+
+      <div className="tos-important-banner">
+        <strong>IMPORTANT</strong> — PLEASE READ BEFORE COMMISSIONING.
+        <span className="exclaim">!</span>
+      </div>
+
+      <div className="tos-slide-block">
+        <p className="tos-rule-para">
+          <span className="warn">Absolutely do not</span> use my work for{" "}
+          <em>AI / NFTs / software</em> that has the function of generating AI.
+          You are also <em>not allowed</em> to claim my work as drawn by you.
+        </p>
+
+        <p className="tos-rule-para">
+          Do <em>not</em> use my work without permission — commercially, as a
+          streaming model, or resell for a higher price, etc.
+        </p>
+
+        <p className="tos-rule-para">
+          When posting commission works on social networks, please{" "}
+          <em>credit my name</em> as the author. I will also credit my client's
+          name in return.
+        </p>
+
+        <p className="tos-rule-para">
+          Work can take up to <em>2–3 weeks</em> (or longer) depending on
+          complexity — counted from the time I <em>start drawing</em>, not from
+          the waitlist.
+        </p>
+
+        <p className="tos-rule-para">
+          Please pay <em>50%–100%</em> of the order value before I start. If
+          money is <span className="warn">not transferred after 10 days</span>,
+          I will cancel your order.
+        </p>
+
+        <p className="tos-rule-para">
+          If you cancel mid-commission, please pay according to the{" "}
+          <em>current progress</em>.{" "}
+          <span className="warn">I won't do refunds</span> unless I am at fault.
+        </p>
+
+        <p className="tos-rule-para">
+          Except for <em>private orders</em>, I reserve the right to post my
+          works on social networking sites — with watermark &amp; client credit.
+        </p>
+
+        <p className="tos-rule-para">
+          I reserve the right to <span className="warn">decline orders</span>{" "}
+          that make me uncomfortable.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   SECTION: WAITLIST
+   — prose slide format
+══════════════════════════════════════════════ */
+function Waitlist() {
+  const ref = useReveal();
+  return (
+    <section className="tos-section" ref={ref}>
+      <h2 className="tos-section-title">
+        <span className="tos-section-badge">QUEUE</span>
+        UPDATE PROGRESS &amp; WAITLIST
+      </h2>
+
+      <div className="tos-waitlist-slide">
+        <div className="tos-waitlist-eyebrow">— HOW TO JOIN THE WAITLIST —</div>
+
+        <div className="tos-waitlist-body">
+          <p>
+            <span className="step-inline">1</span>
+            Contact me to discuss in advance or join my waitlist directly on{" "}
+            <a href="#" rel="noreferrer">
+              Vgen
+            </a>
+            . The earlier you reach out, the sooner we can plan your spot.
+          </p>
+
+          <p>
+            <span className="step-inline">2</span>
+            After finalizing the price, you will pay <em>50%–100%</em>{" "}
+            (depending on your preference) and I will add your name to the
+            waiting list right away.
+          </p>
+
+          <p>
+            <span className="step-inline">3</span>
+            If you cancel your order when it's your turn, you will{" "}
+            <span className="warn">lose 50%</span> of the total value of your
+            order — so please be sure before committing.
+          </p>
+
+          <p>
+            <span className="step-inline">4</span>
+            You can follow my current progress and queue position{" "}
+            <a href="#" rel="noreferrer">
+              here
+            </a>{" "}
+            via my public Trello board.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   CTA
+══════════════════════════════════════════════ */
+function CtaSection() {
+  const ref = useReveal("-40px");
+  return (
+    <div className="tos-cta-section" ref={ref}>
+      <p className="tos-cta-label">
+        ONCE YOU'VE FINISHED READING, PLEASE CONTINUE HERE.
+      </p>
+      <div className="tos-cta-buttons">
+        <a href="#" className="tos-btn tos-btn-primary">
+          <span className="tos-btn-icon">◈</span> VGEN
+        </a>
+        <a href="#" className="tos-btn tos-btn-secondary">
+          <span className="tos-btn-icon">✦</span> ILLUSTRATION COMM
+        </a>
+        <a href="#" className="tos-btn tos-btn-secondary">
+          <span className="tos-btn-icon">◉</span> VTUBER COMMISSION
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════
+   MAIN EXPORT
+══════════════════════════════════════════════ */
+export default function TosPage() {
+  return (
+    <>
+      <PawLayer />
+
+      <div className="tos-page">
+        {/* ── HEADER với slide-in title ── */}
+        <header className="tos-header">
+          <div className="tos-header-inner">
+            <Diamonds />
+            <div>
+              <div className="tos-title-clip">
+                <h1 className="tos-title">TERMS OF SERVICE</h1>
+              </div>
+              <div className="tos-title-underline" />
+            </div>
+            <Diamonds />
+          </div>
+        </header>
+
+        <Chain links={32} />
+
+        {/* ── CARD ── */}
+        <div className="tos-card">
+          <StudsRow count={14} />
+
+          <div className="tos-card-inner">
+            <ImportantRules />
+            <Divider />
+            <Waitlist />
+            <CtaSection />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
