@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import "./Tos.css";
+import GlobalBackground from "../../components/Default/GlobalBackground";
 
 /* ══════════════════════════════════════════════
    CHIBI DOG PAW — chân cún dễ thương
@@ -382,9 +383,9 @@ function CtaSection() {
 export default function TosPage() {
   return (
     <>
-      <PawLayer />
-
+      {/* <PawLayer /> */}
       <div className="tos-page">
+        <GlobalBackground />
         {/* ── HEADER với slide-in title ── */}
         <header className="tos-header">
           <div className="tos-header-inner">

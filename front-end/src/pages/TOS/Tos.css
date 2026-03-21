@@ -19,6 +19,7 @@
   --ff-d: "Bebas Neue", sans-serif;
   --ff-b: "Rajdhani", sans-serif;
 }
+
 *,
 *::before,
 *::after {
@@ -26,9 +27,11 @@
   margin: 0;
   padding: 0;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
 body {
   background: var(--bg);
 }
@@ -56,30 +59,22 @@ body {
   z-index: -1;
   pointer-events: none;
   background:
-    linear-gradient(
-      to bottom,
+    linear-gradient(to bottom,
       rgba(8, 0, 0, 0.75) 0%,
-      rgba(4, 0, 0, 0.58) 100%
-    ),
-    radial-gradient(
-      ellipse 80% 55% at 50% -5%,
+      rgba(4, 0, 0, 0.58) 100%),
+    radial-gradient(ellipse 80% 55% at 50% -5%,
       rgba(139, 0, 0, 0.42) 0%,
-      transparent 65%
-    ),
-    repeating-linear-gradient(
-      0deg,
+      transparent 65%),
+    repeating-linear-gradient(0deg,
       transparent,
       transparent 40px,
       rgba(255, 255, 255, 0.01) 40px,
-      rgba(255, 255, 255, 0.01) 41px
-    ),
-    repeating-linear-gradient(
-      90deg,
+      rgba(255, 255, 255, 0.01) 41px),
+    repeating-linear-gradient(90deg,
       transparent,
       transparent 40px,
       rgba(255, 255, 255, 0.01) 40px,
-      rgba(255, 255, 255, 0.01) 41px
-    );
+      rgba(255, 255, 255, 0.01) 41px);
 }
 
 /* ══════════════════════════════════════════════
@@ -116,66 +111,77 @@ body {
   animation-duration: 15s;
   animation-delay: 0s;
 }
+
 .paw-wrap:nth-child(2) {
   left: 87%;
   width: 44px;
   animation-duration: 19s;
   animation-delay: 2.5s;
 }
+
 .paw-wrap:nth-child(3) {
   left: 20%;
   width: 40px;
   animation-duration: 17s;
   animation-delay: 5s;
 }
+
 .paw-wrap:nth-child(4) {
   left: 65%;
   width: 62px;
   animation-duration: 13s;
   animation-delay: 1.2s;
 }
+
 .paw-wrap:nth-child(5) {
   left: 43%;
   width: 46px;
   animation-duration: 21s;
   animation-delay: 8s;
 }
+
 .paw-wrap:nth-child(6) {
   left: 11%;
   width: 52px;
   animation-duration: 16s;
   animation-delay: 10s;
 }
+
 .paw-wrap:nth-child(7) {
   left: 76%;
   width: 38px;
   animation-duration: 18s;
   animation-delay: 3.8s;
 }
+
 .paw-wrap:nth-child(8) {
   left: 54%;
   width: 48px;
   animation-duration: 14s;
   animation-delay: 12s;
 }
+
 .paw-wrap:nth-child(9) {
   left: 32%;
   width: 58px;
   animation-duration: 20s;
   animation-delay: 7s;
 }
+
 .paw-wrap:nth-child(10) {
   left: 93%;
   width: 42px;
   animation-duration: 17s;
   animation-delay: 14s;
 }
+
 .paw-wrap:nth-child(11) {
   left: 49%;
   width: 36px;
   animation-duration: 22s;
   animation-delay: 4.5s;
 }
+
 .paw-wrap:nth-child(12) {
   left: 7%;
   width: 50px;
@@ -186,6 +192,7 @@ body {
 .paw-wrap:nth-child(even) svg {
   animation-delay: 0.4s;
 }
+
 .paw-wrap:nth-child(3n) svg {
   animation-duration: 2.4s;
 }
@@ -202,7 +209,8 @@ body {
   padding: 0 16px 70px;
   font-family: var(--ff-b);
   color: var(--white);
-  background: transparent; /* ← đổi thành transparent, overlay lo màu */
+  background: transparent;
+  /* ← đổi thành transparent, overlay lo màu */
 }
 
 /* noise grain — vẫn giữ để thêm texture */
@@ -271,15 +279,18 @@ body {
   animation: diamondPulse 2.2s ease-in-out infinite;
   flex-shrink: 0;
 }
+
 .diamond:nth-child(1) {
   width: 14px;
   height: 14px;
 }
+
 .diamond:nth-child(2) {
   width: 10px;
   height: 10px;
   animation-delay: 0.22s;
 }
+
 .diamond:nth-child(3) {
   width: 8px;
   height: 8px;
@@ -309,6 +320,7 @@ body {
   overflow: hidden;
   max-width: 100%;
 }
+
 .chain-link {
   flex-shrink: 0;
   width: 22px;
@@ -318,10 +330,12 @@ body {
   position: relative;
   margin: 0 -1px;
 }
+
 .chain-link:nth-child(even) {
   transform: rotate(90deg);
   margin: 0 -3px;
 }
+
 .chain-link::before {
   content: "";
   position: absolute;
@@ -334,7 +348,7 @@ body {
    CARD
 ══════════════════════════════════════════════ */
 .tos-card {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
   background: var(--card);
   border: 1px solid var(--border);
@@ -357,14 +371,12 @@ body {
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--red),
-    var(--red-dk),
-    var(--red),
-    transparent
-  );
+  background: linear-gradient(90deg,
+      transparent,
+      var(--red),
+      var(--red-dk),
+      var(--red),
+      transparent);
   z-index: 4;
 }
 
@@ -375,21 +387,15 @@ body {
   pointer-events: none;
   background:
     radial-gradient(circle 6px at 12px 12px, var(--stud) 3px, transparent 3px),
-    radial-gradient(
-      circle 6px at calc(100% - 12px) 12px,
+    radial-gradient(circle 6px at calc(100% - 12px) 12px,
       var(--stud) 3px,
-      transparent 3px
-    ),
-    radial-gradient(
-      circle 6px at 12px calc(100% - 12px),
+      transparent 3px),
+    radial-gradient(circle 6px at 12px calc(100% - 12px),
       var(--stud) 3px,
-      transparent 3px
-    ),
-    radial-gradient(
-      circle 6px at calc(100% - 12px) calc(100% - 12px),
+      transparent 3px),
+    radial-gradient(circle 6px at calc(100% - 12px) calc(100% - 12px),
       var(--stud) 3px,
-      transparent 3px
-    );
+      transparent 3px);
   z-index: 4;
 }
 
@@ -400,6 +406,7 @@ body {
   background: rgba(0, 0, 0, 0.45);
   border-bottom: 1px solid var(--border);
 }
+
 .stud {
   width: 8px;
   height: 8px;
@@ -425,6 +432,7 @@ body {
     opacity 0.65s ease,
     transform 0.65s ease;
 }
+
 .tos-section.visible {
   opacity: 1;
   transform: translateY(0);
@@ -441,6 +449,7 @@ body {
   gap: 14px;
   text-shadow: 0 0 22px var(--red-glow);
 }
+
 .tos-section-title::after {
   content: "";
   flex: 1;
@@ -469,11 +478,9 @@ body {
    IMPORTANT BANNER
 ══════════════════════════════════════════════ */
 .tos-important-banner {
-  background: linear-gradient(
-    135deg,
-    rgba(200, 16, 46, 0.14),
-    rgba(139, 0, 0, 0.07)
-  );
+  background: linear-gradient(135deg,
+      rgba(200, 16, 46, 0.14),
+      rgba(139, 0, 0, 0.07));
   border: 1px solid rgba(200, 16, 46, 0.32);
   border-left: 4px solid var(--red);
   border-radius: 0 3px 3px 0;
@@ -487,6 +494,7 @@ body {
   overflow: hidden;
   color: var(--white);
 }
+
 .tos-important-banner .exclaim {
   position: absolute;
   right: 14px;
@@ -498,6 +506,7 @@ body {
   line-height: 1;
   pointer-events: none;
 }
+
 .tos-important-banner strong {
   color: var(--red);
   margin-right: 4px;
@@ -514,6 +523,7 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .tos-slide-block::before {
   content: "";
   position: absolute;
@@ -521,12 +531,11 @@ body {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(
-    to bottom,
-    var(--red) 0%,
-    rgba(200, 16, 46, 0.08) 100%
-  );
+  background: linear-gradient(to bottom,
+      var(--red) 0%,
+      rgba(200, 16, 46, 0.08) 100%);
 }
+
 .tos-slide-block::after {
   content: "TOS";
   position: absolute;
@@ -550,9 +559,11 @@ body {
   padding-left: 24px;
   position: relative;
 }
+
 .tos-rule-para:last-child {
   margin-bottom: 0;
 }
+
 .tos-rule-para::before {
   content: "◆";
   position: absolute;
@@ -563,11 +574,13 @@ body {
   text-shadow: 0 0 6px var(--red-glow);
   line-height: 2.4;
 }
+
 .tos-rule-para em {
   color: var(--white);
   font-style: normal;
   font-weight: 700;
 }
+
 .tos-rule-para .warn {
   color: var(--red);
   font-weight: 700;
@@ -584,6 +597,7 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .tos-waitlist-slide::before {
   content: "";
   position: absolute;
@@ -591,12 +605,11 @@ body {
   top: 0;
   bottom: 0;
   width: 3px;
-  background: linear-gradient(
-    to bottom,
-    var(--red) 0%,
-    rgba(200, 16, 46, 0.08) 100%
-  );
+  background: linear-gradient(to bottom,
+      var(--red) 0%,
+      rgba(200, 16, 46, 0.08) 100%);
 }
+
 .tos-waitlist-slide::after {
   content: "QUEUE";
   position: absolute;
@@ -627,9 +640,11 @@ body {
   color: var(--gray);
   font-weight: 500;
 }
+
 .tos-waitlist-body p {
   margin-bottom: 20px;
 }
+
 .tos-waitlist-body p:last-child {
   margin-bottom: 0;
 }
@@ -659,15 +674,18 @@ body {
   border-bottom: 1px solid rgba(200, 16, 46, 0.38);
   transition: all 0.2s;
 }
+
 .tos-waitlist-body a:hover {
   color: #ff3355;
   border-color: #ff3355;
   text-shadow: 0 0 8px rgba(255, 51, 85, 0.5);
 }
+
 .tos-waitlist-body .warn {
   color: var(--red);
   font-weight: 700;
 }
+
 .tos-waitlist-body em {
   color: var(--white);
   font-style: normal;
@@ -684,11 +702,13 @@ body {
   margin: 40px 0;
   opacity: 0.28;
 }
+
 .tos-divider-line {
   flex: 1;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--gray-dk), transparent);
 }
+
 .tos-divider-dot {
   width: 6px;
   height: 6px;
@@ -700,11 +720,9 @@ body {
    CTA
 ══════════════════════════════════════════════ */
 .tos-cta-section {
-  background: linear-gradient(
-    135deg,
-    rgba(200, 16, 46, 0.08),
-    rgba(139, 0, 0, 0.05)
-  );
+  background: linear-gradient(135deg,
+      rgba(200, 16, 46, 0.08),
+      rgba(139, 0, 0, 0.05));
   border: 1px solid rgba(200, 16, 46, 0.24);
   border-radius: 4px;
   padding: 34px 28px;
@@ -718,21 +736,21 @@ body {
     opacity 0.65s ease,
     transform 0.65s ease;
 }
+
 .tos-cta-section.visible {
   opacity: 1;
   transform: translateY(0);
 }
+
 .tos-cta-section::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    -45deg,
-    transparent,
-    transparent 20px,
-    rgba(200, 16, 46, 0.018) 20px,
-    rgba(200, 16, 46, 0.018) 40px
-  );
+  background: repeating-linear-gradient(-45deg,
+      transparent,
+      transparent 20px,
+      rgba(200, 16, 46, 0.018) 20px,
+      rgba(200, 16, 46, 0.018) 40px);
 }
 
 .tos-cta-label {
@@ -768,6 +786,7 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .tos-btn::after {
   content: "";
   position: absolute;
@@ -776,6 +795,7 @@ body {
   opacity: 0;
   transition: opacity 0.25s;
 }
+
 .tos-btn:hover::after {
   opacity: 1;
 }
@@ -787,6 +807,7 @@ body {
     0 4px 20px rgba(200, 16, 46, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
+
 .tos-btn-primary:hover {
   background: #e01035;
   transform: translateY(-2px);
@@ -801,11 +822,13 @@ body {
     0 4px 15px rgba(0, 0, 0, 0.42),
     inset 0 1px 0 rgba(255, 255, 255, 0.045);
 }
+
 .tos-btn-secondary:hover {
   border-color: var(--red);
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(200, 16, 46, 0.26);
 }
+
 .tos-btn-icon {
   font-size: 17px;
   line-height: 1;
@@ -819,68 +842,84 @@ body {
     transform: translateX(-110%);
     opacity: 0;
   }
+
   60% {
     opacity: 1;
   }
+
   100% {
     transform: translateX(0);
     opacity: 1;
   }
 }
+
 @keyframes sweepUnderline {
   to {
     transform: scaleX(1);
   }
 }
+
 @keyframes fadeSlideUp {
   from {
     opacity: 0;
     transform: translateY(32px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 @keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
+
 @keyframes diamondPulse {
+
   0%,
   100% {
     box-shadow: 0 0 6px var(--red-glow);
   }
+
   50% {
     box-shadow:
       0 0 18px var(--red-glow),
       0 0 32px rgba(200, 16, 46, 0.28);
   }
 }
+
 @keyframes pawRise {
   0% {
     transform: translateY(0) rotate(-15deg);
     opacity: 0;
   }
+
   6% {
     opacity: 0.22;
   }
+
   50% {
     opacity: 0.16;
   }
+
   85% {
     opacity: 0.1;
   }
+
   100% {
     transform: translateY(-110vh) rotate(20deg);
     opacity: 0;
   }
 }
+
 @keyframes pawWiggle {
   0% {
     transform: rotate(-10deg) scale(0.95);
   }
+
   100% {
     transform: rotate(10deg) scale(1.05);
   }
@@ -893,14 +932,17 @@ body {
   .tos-card-inner {
     padding: 26px 20px 36px;
   }
+
   .tos-slide-block,
   .tos-waitlist-slide {
     padding: 22px 18px;
   }
+
   .tos-cta-buttons {
     flex-direction: column;
     align-items: stretch;
   }
+
   .tos-btn {
     justify-content: center;
   }

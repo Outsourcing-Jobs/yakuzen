@@ -17,15 +17,16 @@ const GlobalMenu = () => {
     const navLinks = [
         { path: '/', label: 'HOME', jp: 'ホーム' },
         { path: '/tos', label: 'T.O.S', jp: '利用規約' },
+        { path: '/art-showcase', label: 'ART SHOWCASE', jp: 'アートショーケース' },
         { path: '/login', label: 'LOGIN', jp: 'ログイン' },
         { path: '/signup', label: 'SIGN UP', jp: '新規登録' },
     ];
 
     return (
         <>
-            <button 
-                className={`global-menu-btn ${isOpen ? 'open' : ''}`} 
-                onClick={toggleMenu} 
+            <button
+                className={`global-menu-btn ${isOpen ? 'open' : ''}`}
+                onClick={toggleMenu}
                 aria-label="Toggle Navigation Menu"
             >
                 <div className="hamburger-line"></div>
@@ -35,17 +36,17 @@ const GlobalMenu = () => {
 
             <nav className={`global-menu-overlay ${isOpen ? 'visible' : ''}`}>
                 <div className="menu-backdrop" onClick={closeMenu}></div>
-                
+
                 <div className="menu-content">
-                    <div className="menu-header">
+                    {/* <div className="menu-header">
                         <span className="menu-brand">◈ YAKUZEN</span>
-                    </div>
+                    </div> */}
 
                     <ul className="menu-links">
                         {navLinks.map((link, idx) => (
                             <li key={link.path} style={{ transitionDelay: `${isOpen ? idx * 0.08 : 0}s` }}>
-                                <Link 
-                                    to={link.path} 
+                                <Link
+                                    to={link.path}
                                     className={`menu-link ${location.pathname === link.path ? 'active' : ''}`}
                                     onClick={closeMenu}
                                 >

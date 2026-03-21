@@ -1,0 +1,53 @@
+[
+  {
+    "id": "model-001",
+    "category": "model-art",
+    "title": "NEON CYBER HOUND",
+    "description": "High-poly 3D model of a cybernetic hound. Ready for rigging and animation.",
+    "priceVnd": 1500000,
+    "priceUsd": 59.99,
+    "coverImage": "https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943",
+    "images": [
+      "https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943",
+      "https://framerusercontent.com/images/B5ltLWWMNvIgAzAesNvBfvwe69Y.jpg?width=700&height=943"
+    ]
+  },
+  {
+    "id": "model-002",
+    "category": "model-art",
+    "title": "ABYSS WALKER",
+    "description": "Edgy dark fantasy character model with PBR textures. Optimized for real-time rendering engines.",
+    "priceVnd": 2200000,
+    "priceUsd": 89.99,
+    "coverImage": "https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943",
+    "images": [
+      "https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943"
+    ]
+  },
+  {
+    "id": "illus-001",
+    "category": "illustration",
+    "title": "BLOODY MOON",
+    "description": "Digital illustration of a dystopian future. High resolution 4K.",
+    "priceVnd": 500000,
+    "priceUsd": 19.99,
+    "coverImage": "https://framerusercontent.com/images/nBO5THno7iF7y7SsHfiRhBfzBY.jpg?width=700&height=943",
+    "images": [
+      "https://framerusercontent.com/images/nBO5THno7iF7y7SsHfiRhBfzBY.jpg?width=700&height=943",
+      "https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943",
+      "https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943"
+    ]
+  },
+  {
+    "id": "illus-002",
+    "category": "illustration",
+    "title": "CHAINED SOUL",
+    "description": "Rough sketch style manga illustration focusing on shadow and contrast, perfect for concept art referencing.",
+    "priceVnd": 850000,
+    "priceUsd": 34.99,
+    "coverImage": "https://framerusercontent.com/images/B5ltLWWMNvIgAzAesNvBfvwe69Y.jpg?width=700&height=943",
+    "images": [
+      "https://framerusercontent.com/images/B5ltLWWMNvIgAzAesNvBfvwe69Y.jpg?width=700&height=943"
+    ]
+  }
+]

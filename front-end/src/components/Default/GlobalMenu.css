@@ -111,7 +111,7 @@
     font-size: 28px;
     color: #e60000;
     letter-spacing: 4px;
-    text-shadow: 0 0 10px rgba(230,0,0,0.5);
+    text-shadow: 0 0 10px rgba(230, 0, 0, 0.5);
 }
 
 /* Links List */
@@ -147,7 +147,8 @@
     color: #888;
 }
 
-.menu-link:hover, .menu-link.active {
+.menu-link:hover,
+.menu-link.active {
     color: #fff;
     padding-left: 15px;
 }
@@ -163,7 +164,8 @@
     transition: color 0.3s;
 }
 
-.menu-link:hover .link-num, .menu-link.active .link-num {
+.menu-link:hover .link-num,
+.menu-link.active .link-num {
     color: #e60000;
 }
 
@@ -174,7 +176,7 @@
 
 .link-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px;
+    font-size: 28px;
     letter-spacing: 2px;
     line-height: 1;
     transition: color 0.3s;
@@ -182,7 +184,7 @@
 
 .menu-link.active .link-label {
     color: #e60000;
-    text-shadow: 0 0 15px rgba(230,0,0,0.4);
+    text-shadow: 0 0 15px rgba(230, 0, 0, 0.4);
 }
 
 .link-jp {
@@ -194,7 +196,8 @@
     transition: color 0.3s;
 }
 
-.menu-link:hover .link-jp, .menu-link.active .link-jp {
+.menu-link:hover .link-jp,
+.menu-link.active .link-jp {
     color: #aaaaaa;
 }
 
@@ -204,7 +207,7 @@
     font-family: 'Share Tech Mono', monospace;
     font-size: 12px;
     color: #444;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-top: 20px;
 }
 
@@ -214,6 +217,7 @@
         border-left: none;
         padding: 90px 30px 30px;
     }
+
     .global-menu-btn {
         top: 20px;
         right: 20px;
