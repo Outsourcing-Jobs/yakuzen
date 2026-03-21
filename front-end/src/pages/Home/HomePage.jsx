@@ -13,8 +13,9 @@ const socialLinks = [
 
 const categories = [
     { name: 'TOS', path: '/tos' },
-    { name: 'MODEL ART', path: '/model-art' },
-    { name: 'ILLUSTRATION', path: '/illustration' },
+    { name: "ART SHOWCASE", path: "/art-showcase" },
+    { name: 'MODEL ART', path: '/category/model-art' },
+    { name: 'ILLUSTRATION', path: '/category/illustration' },
 ];
 
 const recentWorks = [
@@ -253,7 +254,7 @@ const HomePage = () => {
                     <a href="#live" className="hp-btn hp-btn--red">
                         <span className="hp-btn__icon">⛓ SEE ME WORK LIVE</span>
                     </a>
-                    <a href="#all" className="hp-btn hp-btn--ghost">
+                    <a href="/art-showcase" className="hp-btn hp-btn--ghost">
                         <span className="hp-btn__icon">+ VIEW ALL</span>
                     </a>
                 </div>

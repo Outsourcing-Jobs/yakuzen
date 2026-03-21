@@ -1,0 +1,84 @@
+/* Reusing edgy-container classes from Global scope but overriding for scroll list */
+.cat-container {
+    height: auto !important; /* Override 100vh lock from edgy-container */
+    min-height: 100vh;
+    padding: 3rem;
+    overflow-y: auto !important;
+    display: block !important;
+}
+
+.cat-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    text-align: center;
+}
+
+.back-btn {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+    text-decoration: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    border: 1px solid #333;
+    padding: 5px 15px;
+    transition: all 0.3s;
+    z-index: 10;
+}
+
+.back-btn:hover {
+    color: #ff2a2a;
+    border-color: #ff2a2a;
+    background: rgba(255, 42, 42, 0.1);
+}
+
+.cat-subtitle {
+    color: #888;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.cat-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+.cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.no-data {
+    text-align: center;
+    color: #ff2a2a;
+    font-size: 2rem;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 5rem 0;
+    border: 2px dashed #444;
+    background: rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+    .back-btn {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 1rem;
+        transform: none;
+        top: 0;
+    }
+    .cat-container {
+        padding: 1.5rem;
+    }
+    .cat-grid {
+        grid-template-columns: 1fr;
+    }
+}

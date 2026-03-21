@@ -1,10 +1,11 @@
-// routes.js
-import EdgyHome from '../pages/EdgyHome/EdgyHome';
 import HomePage from '../pages/Home/HomePage';
 import Login from '../pages/Login/Login';
 import NotFoundPage from '../pages/NotPoundPage/NotPoundPage';
 import Register from '../pages/Register/Register';
 import TosPage from '../pages/TOS/TosPage';
+import CategoryList from '../pages/CategoryList/CategoryList';
+import ProductDetail from '../pages/ProductDetail/ProductDetail';
+import EdgyHome from '../pages/EdgyHome/EdgyHome';
 
 export const langRoutes = [
     {
@@ -20,8 +21,20 @@ export const langRoutes = [
         footerType: 'shipping',
     },
     {
-        path: '/model-art',
+        path: '/art-showcase',
         page: EdgyHome,
+        isShowHeader: false,
+        footerType: 'shipping',
+    },
+    {
+        path: '/category/:categoryId',
+        page: CategoryList,
+        isShowHeader: false,
+        footerType: 'shipping',
+    },
+    {
+        path: '/product/:productId',
+        page: ProductDetail,
         isShowHeader: false,
         footerType: 'shipping',
     },
