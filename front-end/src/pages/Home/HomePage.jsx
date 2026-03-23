@@ -3,6 +3,7 @@ import { Carousel } from 'antd';
 import './HomePage.css';
 import GlobalBackground from '../../components/Default/GlobalBackground';
 import { Link } from 'react-router-dom';
+import axios from '../../utils/axios';
 
 const socialLinks = [
     { icon: '𝕏', label: 'Twitter', href: 'https://x.com/yakuzen345' },
@@ -11,62 +12,13 @@ const socialLinks = [
     //   { icon: "⬡", label: "Discord", href: "#" },
 ];
 
-const categories = [
+const staticCategories = [
     { name: 'TOS', path: '/tos' },
     { name: "ART SHOWCASE", path: "/art-showcase" },
-    { name: 'MODEL ART', path: '/category/model-art' },
-    { name: 'ILLUSTRATION', path: '/category/illustration' },
 ];
 
-const recentWorks = [
-    {
-        id: 1,
-        title: 'Kuro Inu',
-        tag: 'ILLUSTRATION',
-        imgUrl: 'https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943',
-    },
-    {
-        id: 2,
-        title: 'Chain Break',
-        tag: 'MODEL ART',
-        imgUrl: 'https://framerusercontent.com/images/B5ltLWWMNvIgAzAesNvBfvwe69Y.jpg?width=700&height=943',
-    },
-    {
-        id: 3,
-        title: 'Spike & Shade',
-        tag: 'ILLUSTRATION',
-        imgUrl: 'https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943',
-    },
-    {
-        id: 4,
-        title: 'Stray Dogs',
-        tag: 'MODEL ART',
-        imgUrl: 'https://framerusercontent.com/images/nBO5THno7iF7y7SsHfiRhBfzBY.jpg?width=700&height=943',
-    },
-    {
-        id: 5,
-        title: 'Kuro Inu',
-        tag: 'ILLUSTRATION',
-        imgUrl: 'https://framerusercontent.com/images/Z4f2yoBCIPHZKfGQucimh20zII.jpg?width=700&height=943',
-    },
-    {
-        id: 6,
-        title: 'Chain Break',
-        tag: 'MODEL ART',
-        imgUrl: 'https://framerusercontent.com/images/tkuH0utDRddtYbhdVdEr7LEWOdI.jpg?width=700&height=943',
-    },
-    {
-        id: 7,
-        title: 'Spike & Shade',
-        tag: 'ILLUSTRATION',
-        imgUrl: 'https://framerusercontent.com/images/R9rHxdVUyq84XXeT64gMRwbWZo.jpg?width=700&height=943',
-    },
-    {
-        id: 8,
-        title: 'Stray Dogs',
-        tag: 'MODEL ART',
-        imgUrl: 'https://framerusercontent.com/images/SqKzpcHvoIM2ldfdVPIjfVyr6I.jpg?width=700&height=943',
-    },
+const recentWorksStatic = [
+    // This will be replaced by data from API
 ];
 
 const ChainDecor = () => (
@@ -92,7 +44,43 @@ const SpikeBorder = () => (
 const HomePage = () => {
     const [loaded, setLoaded] = useState(false);
     const [activeWork, setActiveWork] = useState(null);
+    const [categories, setCategories] = useState(staticCategories);
+    const [recentWorks, setRecentWorks] = useState([]);
     const carouselRef = useRef(null);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('/categories');
+                const dynamicCats = response.data.map(cat => ({
+                    name: cat.name.toUpperCase(),
+                    path: `/category/${cat.slug}`
+                }));
+                setCategories([...staticCategories, ...dynamicCats]);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        const fetchRecentWorks = async () => {
+            try {
+                const response = await axios.get('/products?limit=10');
+                const mappedWorks = response.data.map(product => ({
+                    id: product._id,
+                    slug: product.slug,
+                    title: product.name,
+                    tag: product.category?.name?.toUpperCase() || 'UNCATEGORIZED',
+                    imgUrl: product.images && product.images.length > 0 ? product.images[0].url : ''
+                }));
+                setRecentWorks(mappedWorks);
+            } catch (error) {
+                console.error('Error fetching recent works:', error);
+            }
+        };
+
+        fetchCategories();
+        fetchRecentWorks();
+    }, []);
 
     useEffect(() => {
         const t = setTimeout(() => setLoaded(true), 100);
@@ -219,32 +207,33 @@ const HomePage = () => {
                     >
                         {recentWorks.concat(recentWorks).map((work, i) => (
                             <div key={`${work.id}-${i}`} className="hp-work-slide">
-                                <div
-                                    className={`hp-work-card ${activeWork === i ? 'hp-work-card--active' : ''}`}
-                                    onMouseEnter={() => setActiveWork(i)}
-                                    onMouseLeave={() => setActiveWork(null)}
-                                >
-                                    <div className="hp-work-card__img">
-                                        <div className="hp-work-card__placeholder">
-                                            {/* <span>🐕</span> */}
-                                            <img
-                                                src={work.imgUrl}
-                                                alt={work.title}
-                                                style={{
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    objectFit: 'cover',
-                                                }}
-                                            />
+                                <Link to={`/product/${work.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <div
+                                        className={`hp-work-card ${activeWork === i ? 'hp-work-card--active' : ''}`}
+                                        onMouseEnter={() => setActiveWork(i)}
+                                        onMouseLeave={() => setActiveWork(null)}
+                                    >
+                                        <div className="hp-work-card__img">
+                                            <div className="hp-work-card__placeholder">
+                                                <img
+                                                    src={work.imgUrl}
+                                                    alt={work.title}
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '100%',
+                                                        objectFit: 'cover',
+                                                    }}
+                                                />
+                                            </div>
+                                            <div className="hp-work-card__overlay">
+                                                <span className="hp-work-card__tag">{work.tag}</span>
+                                                <span className="hp-work-card__title">{work.title}</span>
+                                            </div>
+                                            <div className="hp-work-card__corner hp-work-card__corner--tl" />
+                                            <div className="hp-work-card__corner hp-work-card__corner--br" />
                                         </div>
-                                        <div className="hp-work-card__overlay">
-                                            <span className="hp-work-card__tag">{work.tag}</span>
-                                            <span className="hp-work-card__title">{work.title}</span>
-                                        </div>
-                                        <div className="hp-work-card__corner hp-work-card__corner--tl" />
-                                        <div className="hp-work-card__corner hp-work-card__corner--br" />
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         ))}
                     </Carousel>

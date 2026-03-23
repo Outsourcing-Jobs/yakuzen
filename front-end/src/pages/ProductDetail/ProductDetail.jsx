@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import GlobalBackground from '../../components/Default/GlobalBackground';
-import mockData from '../../data/mockArtworks.json';
+import axios from '../../utils/axios';
 import './ProductDetail.css';
 
 const formatCurrency = (amount, currency) => {
+    if (!amount) return currency === 'VND' ? '0 ₫' : '$0.00';
     return new Intl.NumberFormat(currency === 'VND' ? 'vi-VN' : 'en-US', {
         style: 'currency',
         currency: currency,
@@ -13,19 +14,57 @@ const formatCurrency = (amount, currency) => {
 };
 
 const ProductDetail = () => {
-    const { productId } = useParams();
-    const product = mockData.find(item => item.id === productId);
+    const { slug } = useParams();
+    const [product, setProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [activeImage, setActiveImage] = useState('');
 
-    // Initialize the main image either to coverImage or first image in array
-    const [activeImage, setActiveImage] = useState(product ? (product.coverImage || (product.images && product.images[0]) || '') : '');
+    useEffect(() => {
+        const fetchProduct = async () => {
+            setLoading(true);
+            try {
+                const res = await axios.get(`/products/slug/${slug}`);
+                const data = res.data;
+                const mappedProduct = {
+                    id: data._id,
+                    title: data.name,
+                    description: data.description,
+                    priceVnd: data.price,
+                    priceUsd: Math.round((data.price / 25000) * 100) / 100,
+                    category: data.category?.slug || 'unknown',
+                    categoryName: data.category?.name || 'Unknown',
+                    images: data.images?.map(img => img.url) || [],
+                    coverImage: data.images && data.images.length > 0 ? data.images[0].url : ''
+                };
+                setProduct(mappedProduct);
+                setActiveImage(mappedProduct.coverImage || (mappedProduct.images && mappedProduct.images[0]) || '');
+            } catch (error) {
+                console.error('Error fetching product:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchProduct();
+    }, [slug]);
+
+    if (loading) {
+        return (
+            <div className="detail-container edgy-container">
+                <GlobalBackground />
+                <div className="loading-state" style={{ marginTop: '10rem', fontSize: '2rem', textAlign: 'center' }}>
+                    REVEALING ASSET DATA...
+                </div>
+            </div>
+        );
+    }
 
     if (!product) {
         return (
             <div className="detail-container edgy-container">
                 <GlobalBackground />
-                <div className="no-data" style={{ marginTop: '5rem' }}>PRODUCT [{productId}] NOT FOUND</div>
+                <div className="no-data" style={{ marginTop: '5rem' }}>PRODUCT [{slug}] NOT FOUND</div>
                 <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <Link to="/model-art" className="detail-back-btn">RETURN TO HOME</Link>
+                    <Link to="/" className="detail-back-btn">RETURN TO HOME</Link>
                 </div>
             </div>
         );
@@ -41,7 +80,7 @@ const ProductDetail = () => {
 
             <div className="detail-nav">
                 <Link to={`/category/${product.category}`} className="detail-back-btn">
-                    ◄ BACK TO {product.category.replace('-', ' ').toUpperCase()}
+                    ◄ BACK TO {product.categoryName.toUpperCase()}
                 </Link>
             </div>
 
@@ -80,7 +119,7 @@ const ProductDetail = () => {
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
                     <div className="info-header">
-                        <div className="edgy-tag static-tag">{product.category.toUpperCase()}</div>
+                        <div className="edgy-tag static-tag">{product.categoryName.toUpperCase()}</div>
                         <h1 className="detail-title text-red">{product.title}</h1>
                         <div className="detail-id">ID: {product.id}</div>
                     </div>

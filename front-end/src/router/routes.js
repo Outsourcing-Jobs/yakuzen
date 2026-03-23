@@ -6,6 +6,12 @@ import TosPage from '../pages/TOS/TosPage';
 import CategoryList from '../pages/CategoryList/CategoryList';
 import ProductDetail from '../pages/ProductDetail/ProductDetail';
 import EdgyHome from '../pages/EdgyHome/EdgyHome';
+import AdminLayout from '../components/Admin/AdminLayout';
+import AdminDashboard from '../pages/Admin/AdminDashboard';
+import AdminTOS from '../pages/Admin/AdminTOS';
+import AdminCategory from '../pages/Admin/AdminCategory';
+import AdminUser from '../pages/Admin/AdminUser';
+import AdminProduct from '../pages/Admin/AdminProduct';
 
 export const langRoutes = [
     {
@@ -33,7 +39,7 @@ export const langRoutes = [
         footerType: 'shipping',
     },
     {
-        path: '/product/:productId',
+        path: '/product/:slug',
         page: ProductDetail,
         isShowHeader: false,
         footerType: 'shipping',
@@ -48,6 +54,33 @@ export const globalRoutes = [
     {
         path: '/signup',
         page: Register,
+    },
+    {
+        path: '/admin-dashboard',
+        page: AdminLayout,
+        isPrivate: true,
+        children: [
+            {
+                path: '',
+                page: AdminDashboard
+            },
+            {
+                path: 'tos',
+                page: AdminTOS
+            },
+            {
+                path: 'categories',
+                page: AdminCategory
+            },
+            {
+                path: 'users',
+                page: AdminUser
+            },
+            {
+                path: 'products',
+                page: AdminProduct
+            }
+        ]
     },
     {
         path: '*',

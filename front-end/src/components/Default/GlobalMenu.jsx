@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './GlobalMenu.css';
 
-const GlobalMenu = () => {
+const GlobalMenu = ({ isAdmin }) => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
 
     const toggleMenu = () => setIsOpen(!isOpen);
     const closeMenu = () => setIsOpen(false);
-
+    console.log('isAdmin', isAdmin)
     // Close menu automatically when route changes
     useEffect(() => {
         setIsOpen(false);
@@ -18,6 +18,9 @@ const GlobalMenu = () => {
         { path: '/', label: 'HOME', jp: 'ホーム' },
         { path: '/tos', label: 'T.O.S', jp: '利用規約' },
         { path: '/art-showcase', label: 'ART SHOWCASE', jp: 'アートショーケース' },
+        ...(isAdmin
+            ? [{ path: '/admin-dashboard', label: 'DASHBOARD', jp: 'ダッシュボード' }]
+            : []),
         { path: '/login', label: 'LOGIN', jp: 'ログイン' },
         { path: '/signup', label: 'SIGN UP', jp: '新規登録' },
     ];
