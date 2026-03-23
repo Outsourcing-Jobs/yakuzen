@@ -1,0 +1,96 @@
+/* Admin Layout Styles */
+.admin-sider {
+  background: #022c22 !important; /* Deep Forest Green */
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-logo-section {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  background: #064e3b;
+  margin-bottom: 8px;
+  transition: all 0.3s;
+}
+
+.admin-logo-text {
+  color: #fbbf24; /* Amber/Gold */
+  font-family: 'Outfit', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+.admin-menu {
+  border-right: none !important;
+  background: transparent !important;
+}
+
+.admin-menu .ant-menu-item {
+  margin: 8px 12px !important;
+  border-radius: 8px !important;
+  width: calc(100% - 24px) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  transition: all 0.2s !important;
+}
+
+.admin-menu .ant-menu-item-selected {
+  background: #10b981 !important; /* Emerald Green */
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.admin-menu .ant-menu-item:hover {
+  color: white !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.admin-header {
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 24px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.admin-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 4px 12px;
+  border-radius: 30px;
+  transition: background 0.3s;
+}
+
+.admin-user-profile:hover {
+  background: #f1f5f9;
+}
+
+.admin-content {
+  background: #f8fafc;
+  padding: 24px;
+  min-height: calc(100vh - 64px - 70px);
+}
+
+.admin-footer {
+  text-align: center;
+  padding: 24px;
+  background: #f8fafc;
+  color: #94a3b8;
+  font-size: 14px;
+}
+
+.breadcrumb-container {
+  margin-bottom: 24px;
+}

@@ -4,6 +4,7 @@ const productController = require('../controllers/product.controller');
 const { upload } = require('../config/cloudinary');
 
 router.get('/', productController.getProducts);
+router.get('/slug/:slug', productController.getProductBySlug);
 
 // API tạo mới sản phẩm với tối đa 5 ảnh
 router.post('/', upload.array('images', 5), productController.createProduct);

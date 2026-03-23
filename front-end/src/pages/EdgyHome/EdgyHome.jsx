@@ -1,12 +1,61 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './EdgyHome.css';
 import GlobalBackground from '../../components/Default/GlobalBackground';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from '../../utils/axios';
+
+const IMAGE_PLACEHOLDER = "https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7";
 
 const EdgyHome = () => {
     const navigate = useNavigate();
+    const [modelPool, setModelPool] = useState([]);
+    const [illusPool, setIllusPool] = useState([]);
 
+    const shuffleArray = (array) => {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+    };
+
+    useEffect(() => {
+        const fetchShowcaseData = async () => {
+            try {
+                const [modelRes, illusRes] = await Promise.all([
+                    axios.get('/products?category=model-art&limit=20'),
+                    axios.get('/products?category=illustration&limit=20')
+                ]);
+
+                const mPool = [];
+                modelRes.data.forEach(p => {
+                    if (p.images) {
+                        p.images.forEach(img => mPool.push({ url: img.url, slug: p.slug, name: p.name }));
+                    }
+                });
+
+                const iPool = [];
+                illusRes.data.forEach(p => {
+                    if (p.images) {
+                        p.images.forEach(img => iPool.push({ url: img.url, slug: p.slug, name: p.name }));
+                    }
+                });
+
+                setModelPool(shuffleArray(mPool));
+                setIllusPool(shuffleArray(iPool));
+            } catch (error) {
+                console.error('Error fetching showcase projects:', error);
+            }
+        };
+        fetchShowcaseData();
+    }, []);
+
+    const getItem = (pool, index) => {
+        if (!pool || pool.length === 0) return { url: IMAGE_PLACEHOLDER, slug: '#', name: 'Placeholder' };
+        return pool[index % pool.length];
+    };
     return (
         <div className="edgy-container">
             <GlobalBackground />
@@ -39,38 +88,59 @@ const EdgyHome = () => {
 
                     <div className="edgy-gallery-model">
                         <div className="edgy-box flip-container">
-                            <div className="flipper">
-                                <div className="front">
-                                    <img src="https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943" alt="Model Art 1 Front" />
-                                    <div className="edgy-tag">MODEL</div>
+                            {modelPool.length > 0 ? (
+                                <Link to={`/product/${getItem(modelPool, 0).slug}`} className="flipper" style={{ display: 'block' }}>
+                                    <div className="front">
+                                        <img src={getItem(modelPool, 0).url} alt={getItem(modelPool, 0).name} />
+                                        <div className="edgy-tag">MODEL</div>
+                                    </div>
+                                    <div className="back">
+                                        <img src={getItem(modelPool, 1).url} alt={getItem(modelPool, 1).name} />
+                                        <div className="edgy-tag">ART</div>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <div className="flipper">
+                                    <div className="front"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                    <div className="back"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
                                 </div>
-                                <div className="back">
-                                    <img src="https://framerusercontent.com/images/B5ltLWWMNvIgAzAesNvBfvwe69Y.jpg?width=700&height=943" alt="Model Art 1 Back" />
-                                    <div className="edgy-tag">ART</div>
-                                </div>
-                            </div>
+                            )}
                         </div>
 
                         <div className="edgy-gallery-side">
                             <div className="edgy-box flip-container small">
-                                <div className="flipper">
-                                    <div className="front">
-                                        <img src="https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943" alt="Model Art 2 Front" />
+                                {modelPool.length > 2 ? (
+                                    <Link to={`/product/${getItem(modelPool, 2).slug}`} className="flipper" style={{ display: 'block' }}>
+                                        <div className="front">
+                                            <img src={getItem(modelPool, 2).url} alt={getItem(modelPool, 2).name} />
+                                        </div>
+                                        <div className="back">
+                                            <img src={getItem(modelPool, 3).url} alt={getItem(modelPool, 3).name} />
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <div className="flipper">
+                                        <div className="front"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                        <div className="back"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
                                     </div>
-                                    <div className="back">
-                                        <img src="https://framerusercontent.com/images/nBO5THno7iF7y7SsHfiRhBfzBY.jpg?width=700&height=943" alt="Model Art 2 Back" />
-                                    </div>
-                                </div>
+                                )}
                             </div>
                             <div className="edgy-box flip-container small">
-                                <div className="flipper">
-                                    <div className="front">
-                                        <img src="https://framerusercontent.com/images/nBO5THno7iF7y7SsHfiRhBfzBY.jpg?width=700&height=943" alt="Model Art 3 Front" />
+                                {modelPool.length > 4 ? (
+                                    <Link to={`/product/${getItem(modelPool, 4).slug}`} className="flipper" style={{ display: 'block' }}>
+                                        <div className="front">
+                                            <img src={getItem(modelPool, 4).url} alt={getItem(modelPool, 4).name} />
+                                        </div>
+                                        <div className="back">
+                                            <img src={getItem(modelPool, 5).url} alt={getItem(modelPool, 5).name} />
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <div className="flipper">
+                                        <div className="front"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                        <div className="back"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
                                     </div>
-                                    <div className="back">
-                                        <img src="https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943" alt="Model Art 3 Back" />
-                                    </div>
-                                </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -95,26 +165,51 @@ const EdgyHome = () => {
                     </h2>
 
                     <div className="edgy-gallery-illus">
-                        <div className="edgy-box edgy-illus-main slice-hover" style={{ flex: 2 }}>
-                            <img className="slice-img-bottom" src="https://framerusercontent.com/images/B5ltLWWMNvIgAzAesNvBfvwe69Y.jpg?width=700&height=943" alt="Illustration Reveal 1" />
-                            <div className="slice-overlay">
-                                <img className="slice-img-top" src="https://framerusercontent.com/images/nBO5THno7iF7y7SsHfiRhBfzBY.jpg?width=700&height=943" alt="Illustration" />
+                        {illusPool.length > 0 ? (
+                            <Link to={`/product/${getItem(illusPool, 0).slug}`} className="edgy-box edgy-illus-main slice-hover" style={{ flex: 2 }}>
+                                <img className="slice-img-bottom" src={getItem(illusPool, 1).url} alt={getItem(illusPool, 1).name} />
+                                <div className="slice-overlay">
+                                    <img className="slice-img-top" src={getItem(illusPool, 0).url} alt={getItem(illusPool, 0).name} />
+                                </div>
+                                <div className="edgy-tag">ILLUST</div>
+                            </Link>
+                        ) : (
+                            <div className="edgy-box edgy-illus-main slice-hover" style={{ flex: 2 }}>
+                                <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                <div className="slice-overlay"><img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
                             </div>
-                            <div className="edgy-tag">ILLUST</div>
-                        </div>
+                        )}
 
                         <div className="edgy-illus-grid" style={{ flex: 1 }}>
                             <div className="edgy-box edgy-illus-small slice-hover">
-                                <img className="slice-img-bottom" src="https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943" alt="Illust Reveal 2" />
-                                <div className="slice-overlay">
-                                    <img className="slice-img-top" src="https://framerusercontent.com/images/B5ltLWWMNvIgAzAesNvBfvwe69Y.jpg?width=700&height=943" alt="Illust 1" />
-                                </div>
+                                {illusPool.length > 2 ? (
+                                    <Link to={`/product/${getItem(illusPool, 2).slug}`}>
+                                        <img className="slice-img-bottom" src={getItem(illusPool, 3).url} alt={getItem(illusPool, 3).name} />
+                                        <div className="slice-overlay">
+                                            <img className="slice-img-top" src={getItem(illusPool, 2).url} alt={getItem(illusPool, 2).name} />
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <>
+                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <div className="slice-overlay"><img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                    </>
+                                )}
                             </div>
                             <div className="edgy-box edgy-illus-small slice-hover">
-                                <img className="slice-img-bottom" src="https://framerusercontent.com/images/aPzYEPAdRz1sF28869k0vyLBts.jpg?width=700&height=943" alt="Illust Reveal 3" />
-                                <div className="slice-overlay">
-                                    <img className="slice-img-top" src="https://framerusercontent.com/images/6iD5FHyFNhEgxZEkDbQOGzSdrlQ.jpg?width=700&height=943" alt="Illust 2" />
-                                </div>
+                                {illusPool.length > 4 ? (
+                                    <Link to={`/product/${getItem(illusPool, 4).slug}`}>
+                                        <img className="slice-img-bottom" src={getItem(illusPool, 5).url} alt={getItem(illusPool, 5).name} />
+                                        <div className="slice-overlay">
+                                            <img className="slice-img-top" src={getItem(illusPool, 4).url} alt={getItem(illusPool, 4).name} />
+                                        </div>
+                                    </Link>
+                                ) : (
+                                    <>
+                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <div className="slice-overlay"><img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                    </>
+                                )}
                             </div>
                         </div>
                     </div>

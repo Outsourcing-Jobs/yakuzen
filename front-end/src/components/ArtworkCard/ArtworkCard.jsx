@@ -11,7 +11,7 @@ const formatCurrency = (amount, currency) => {
 
 const ArtworkCard = ({ item }) => {
     return (
-        <Link to={`/product/${item.id}`} className="artwork-card-link">
+        <Link to={`/product/${item.slug}`} className="artwork-card-link">
             <div className="artwork-card edgy-box">
                 <div className="card-img-wrapper">
                     <img src={item.coverImage} alt={item.title} />

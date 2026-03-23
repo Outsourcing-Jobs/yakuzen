@@ -1,11 +1,12 @@
 const Product = require('../models/Product');
+const mongoose = require('mongoose');
 const slugify = require('slugify');
 const { cloudinary } = require('../config/cloudinary');
 
 exports.createProduct = async (req, res) => {
   try {
-    const { name, category, price, discountPrice, description, isAvailable } = req.body;
-    
+    const { name, category, price, discountPrice, description, isAvailable, order } = req.body;
+
     if (!name || !category || !price) {
       return res.status(400).json({ message: 'Tên, Category và Giá là bắt buộc' });
     }
@@ -37,6 +38,7 @@ exports.createProduct = async (req, res) => {
       discountPrice,
       description,
       isAvailable,
+      order: order || 0,
       images,
     });
 
@@ -49,13 +51,31 @@ exports.createProduct = async (req, res) => {
 
 exports.getProducts = async (req, res) => {
   try {
-    // Có thể thêm filter category ở đây nếu truyền ?category=...
-    const { category } = req.query;
+    const { category, limit } = req.query;
     const filter = {};
-    if (category) filter.category = category;
 
-    const products = await Product.find(filter).sort({ createdAt: -1 });
-    
+    if (category) {
+      if (mongoose.Types.ObjectId.isValid(category)) {
+        filter.category = category;
+      } else {
+        // Nếu không phải ID hợp lệ, giả định là slug
+        const Category = require('../models/Category');
+        const foundCategory = await Category.findOne({ slug: category });
+        if (foundCategory) {
+          filter.category = foundCategory._id;
+        } else {
+          return res.json([]); // Không tìm thấy category với slug này
+        }
+      }
+    }
+
+    const query = Product.find(filter).sort({ order: 1, createdAt: -1 });
+    if (limit) {
+      query.limit(parseInt(limit));
+    }
+
+    const products = await query;
+
     // Sort ảnh trước khi trả về
     products.forEach(p => {
       if (p.images && p.images.length > 0) {
@@ -69,10 +89,30 @@ exports.getProducts = async (req, res) => {
   }
 };
 
+exports.getProductBySlug = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const product = await Product.findOne({ slug }).populate('category', 'name slug');
+
+    if (!product) {
+      return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
+    }
+
+    // Sort ảnh trước khi trả về
+    if (product.images && product.images.length > 0) {
+      product.images.sort((a, b) => a.order - b.order);
+    }
+
+    res.json(product);
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server', error: error.message });
+  }
+};
+
 exports.updateProductDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, price, discountPrice, description, isAvailable, imageOrders } = req.body;
+    const { name, category, price, discountPrice, description, isAvailable, order, imageOrders } = req.body;
 
     const product = await Product.findById(id);
     if (!product) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
@@ -86,6 +126,7 @@ exports.updateProductDetails = async (req, res) => {
     if (discountPrice !== undefined) product.discountPrice = discountPrice;
     if (description !== undefined) product.description = description;
     if (isAvailable !== undefined) product.isAvailable = isAvailable;
+    if (order !== undefined) product.order = order;
 
     // Cập nhật thứ tự ảnh (nhận array imageOrders: [{ public_id, order }, ...])
     if (imageOrders && Array.isArray(imageOrders)) {
