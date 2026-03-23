@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./GlobalBackground.css";
 
-const PAWS_COUNT = 100;
+const PAWS_COUNT = 160;
 const BUBBLES_COUNT = 100;
 
 const GlobalBackground = () => {
@@ -21,11 +21,11 @@ const GlobalBackground = () => {
       });
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
+    // window.addEventListener("mousemove", handleMouseMove);
+    // return () => {
+    //   window.removeEventListener("mousemove", handleMouseMove);
+    //   cancelAnimationFrame(animationFrameId);
+    // };
   }, []);
 
   // Generate static random positions for the items entirely across the Document Height
@@ -71,7 +71,7 @@ const GlobalBackground = () => {
       />
 
       {/* ── Parallax layer for Bubbles ── */}
-      <div
+      {/* <div
         className="bg-parallax-layer bubbles-layer"
         style={{
           transform: `translate3d(${mousePos.x * 50}px, ${mousePos.y * 50}px, 0)`,
@@ -92,7 +92,7 @@ const GlobalBackground = () => {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       {/* ── Parallax layer for Paws ── */}
       <div
