@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Card, Statistic, Typography, Divider, Space, Timeline } from 'antd';
+import { Row, Col, Card, Statistic, Typography, Divider, Space, Timeline, Input, Button, message } from 'antd';
 import {
     UserOutlined,
     ShoppingCartOutlined,
@@ -10,9 +10,41 @@ import {
     FileProtectOutlined
 } from '@ant-design/icons';
 
+import axios from '../../utils/axios';
+
 const { Title, Paragraph, Text } = Typography;
 
 const AdminDashboard = () => {
+    const [rate, setRate] = React.useState(null);
+    const [newRate, setNewRate] = React.useState('');
+    const [loading, setLoading] = React.useState(false);
+
+    React.useEffect(() => {
+        fetchRate();
+    }, []);
+
+    const fetchRate = async () => {
+        try {
+            const res = await axios.get('/settings/exchange_rate');
+            setRate(res.data.value);
+            setNewRate(res.data.value);
+        } catch (error) {
+            console.error('Error fetching rate:', error);
+        }
+    };
+
+    const handleUpdateRate = async () => {
+        setLoading(true);
+        try {
+            await axios.put('/settings/exchange_rate', { value: Number(newRate) });
+            message.success('Cập nhật tỉ giá thành công');
+            setRate(newRate);
+        } catch (error) {
+            message.error('Cập nhật tỉ giá thất bại');
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
         <div style={{ padding: '20px' }}>
             <div style={{ marginBottom: '40px', background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)', padding: '40px', borderRadius: '20px', color: 'white' }}>
@@ -112,6 +144,42 @@ const AdminDashboard = () => {
                                 },
                             ]}
                         />
+                    </Card>
+                </Col>
+            </Row>
+
+            <Divider orientation="left" style={{ marginTop: '50px' }}>
+                <Space><DollarOutlined /> <Title level={4} style={{ margin: 0 }}>CÀI ĐẶT HỆ THỐNG</Title></Space>
+            </Divider>
+
+            <Row gutter={[24, 24]}>
+                <Col xs={24} md={12}>
+                    <Card 
+                        title={<Space><SettingOutlined style={{ color: '#3b82f6' }} /> Cấu hình Tỉ giá ($1 = ? VND)</Space>} 
+                        hoverable
+                    >
+                         <div style={{ padding: '20px 0' }}>
+                            <Statistic
+                                title={<Text strong style={{ color: '#64748b' }}>TỈ GIÁ HIỆN TẠI</Text>}
+                                value={rate}
+                                valueStyle={{ color: '#3b82f6', fontWeight: 'bold' }}
+                                prefix="$1 ="
+                                suffix="VND"
+                            />
+                            <Divider />
+                            <Space direction="vertical" style={{ width: '100%' }}>
+                                <Text type="secondary">Cập nhật tỉ giá mới:</Text>
+                                <Space.Compact style={{ width: '100%' }}>
+                                    <Input 
+                                        type="number" 
+                                        value={newRate} 
+                                        onChange={(e) => setNewRate(e.target.value)} 
+                                        placeholder="Nhập tỉ giá mới..." 
+                                    />
+                                    <Button type="primary" loading={loading} onClick={handleUpdateRate}>CẬP NHẬT</Button>
+                                </Space.Compact>
+                            </Space>
+                         </div>
                     </Card>
                 </Col>
             </Row>

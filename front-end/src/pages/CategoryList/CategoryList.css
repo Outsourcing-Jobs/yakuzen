@@ -1,6 +1,7 @@
 /* Reusing edgy-container classes from Global scope but overriding for scroll list */
 .cat-container {
-    height: auto !important; /* Override 100vh lock from edgy-container */
+    height: auto !important;
+    /* Override 100vh lock from edgy-container */
     min-height: 100vh;
     padding: 3rem;
     overflow-y: auto !important;
@@ -18,7 +19,7 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    color: #777;
+    color: #afaeae;
     text-decoration: none;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
@@ -35,11 +36,31 @@
 }
 
 .cat-subtitle {
-    color: #888;
+    color: #a99b9b;
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 2px;
     margin-top: 10px;
     font-weight: bold;
+}
+
+.cat-exchange-rate {
+    margin-top: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    color: #888;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.rate-line {
+    border-left: 3px solid #ff2a2a;
+    font-size: 1rem;
+    color: #ffffff;
+    padding-left: 10px;
+    background: #272525;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline-block;
 }
 
 .cat-content {
@@ -64,7 +85,7 @@
     font-family: 'Courier New', Courier, monospace;
     padding: 5rem 0;
     border: 2px dashed #444;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 768px) {
@@ -75,9 +96,11 @@
         transform: none;
         top: 0;
     }
+
     .cat-container {
         padding: 1.5rem;
     }
+
     .cat-grid {
         grid-template-columns: 1fr;
     }
