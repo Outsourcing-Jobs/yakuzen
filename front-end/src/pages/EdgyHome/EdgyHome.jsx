@@ -5,14 +5,14 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../utils/axios';
 
-const IMAGE_PLACEHOLDER = "https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7";
+const IMAGE_PLACEHOLDER = 'https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7';
 
 const EdgyHome = () => {
     const navigate = useNavigate();
     const [modelPool, setModelPool] = useState([]);
     const [illusPool, setIllusPool] = useState([]);
 
-    const shuffleArray = (array) => {
+    const shuffleArray = array => {
         const shuffled = [...array];
         for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -26,7 +26,7 @@ const EdgyHome = () => {
             try {
                 const [modelRes, illusRes] = await Promise.all([
                     axios.get('/products?category=model-art&limit=20'),
-                    axios.get('/products?category=illustration&limit=20')
+                    axios.get('/products?category=illustration&limit=20'),
                 ]);
 
                 const mPool = [];
@@ -89,7 +89,11 @@ const EdgyHome = () => {
                     <div className="edgy-gallery-model">
                         <div className="edgy-box flip-container">
                             {modelPool.length > 0 ? (
-                                <Link to={`/product/${getItem(modelPool, 0).slug}`} className="flipper" style={{ display: 'block' }}>
+                                <Link
+                                    to={`/product/${getItem(modelPool, 0).slug}`}
+                                    className="flipper"
+                                    style={{ display: 'block' }}
+                                >
                                     <div className="front">
                                         <img src={getItem(modelPool, 0).url} alt={getItem(modelPool, 0).name} />
                                         <div className="edgy-tag">MODEL</div>
@@ -101,8 +105,12 @@ const EdgyHome = () => {
                                 </Link>
                             ) : (
                                 <div className="flipper">
-                                    <div className="front"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
-                                    <div className="back"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                    <div className="front">
+                                        <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                    </div>
+                                    <div className="back">
+                                        <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -110,7 +118,11 @@ const EdgyHome = () => {
                         <div className="edgy-gallery-side">
                             <div className="edgy-box flip-container small">
                                 {modelPool.length > 2 ? (
-                                    <Link to={`/product/${getItem(modelPool, 2).slug}`} className="flipper" style={{ display: 'block' }}>
+                                    <Link
+                                        to={`/product/${getItem(modelPool, 2).slug}`}
+                                        className="flipper"
+                                        style={{ display: 'block' }}
+                                    >
                                         <div className="front">
                                             <img src={getItem(modelPool, 2).url} alt={getItem(modelPool, 2).name} />
                                         </div>
@@ -120,14 +132,22 @@ const EdgyHome = () => {
                                     </Link>
                                 ) : (
                                     <div className="flipper">
-                                        <div className="front"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
-                                        <div className="back"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                        <div className="front">
+                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        </div>
+                                        <div className="back">
+                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        </div>
                                     </div>
                                 )}
                             </div>
                             <div className="edgy-box flip-container small">
                                 {modelPool.length > 4 ? (
-                                    <Link to={`/product/${getItem(modelPool, 4).slug}`} className="flipper" style={{ display: 'block' }}>
+                                    <Link
+                                        to={`/product/${getItem(modelPool, 4).slug}`}
+                                        className="flipper"
+                                        style={{ display: 'block' }}
+                                    >
                                         <div className="front">
                                             <img src={getItem(modelPool, 4).url} alt={getItem(modelPool, 4).name} />
                                         </div>
@@ -137,8 +157,12 @@ const EdgyHome = () => {
                                     </Link>
                                 ) : (
                                     <div className="flipper">
-                                        <div className="front"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
-                                        <div className="back"><img src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                        <div className="front">
+                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        </div>
+                                        <div className="back">
+                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        </div>
                                     </div>
                                 )}
                             </div>
@@ -160,23 +184,40 @@ const EdgyHome = () => {
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                    <h2 className="edgy-col-title text-red clickable" onClick={() => navigate('/category/illustration')}>
+                    <h2
+                        className="edgy-col-title text-red clickable"
+                        onClick={() => navigate('/category/illustration')}
+                    >
                         <span className="bark-icon">🩸</span> ILLUSTRATION
                     </h2>
 
                     <div className="edgy-gallery-illus">
                         {illusPool.length > 0 ? (
-                            <Link to={`/product/${getItem(illusPool, 0).slug}`} className="edgy-box edgy-illus-main slice-hover" style={{ flex: 2 }}>
-                                <img className="slice-img-bottom" src={getItem(illusPool, 1).url} alt={getItem(illusPool, 1).name} />
+                            <Link
+                                to={`/product/${getItem(illusPool, 0).slug}`}
+                                className="edgy-box edgy-illus-main slice-hover"
+                                style={{ flex: 2 }}
+                            >
+                                <img
+                                    className="slice-img-bottom"
+                                    src={getItem(illusPool, 1).url}
+                                    alt={getItem(illusPool, 1).name}
+                                />
                                 <div className="slice-overlay">
-                                    <img className="slice-img-top" src={getItem(illusPool, 0).url} alt={getItem(illusPool, 0).name} />
+                                    <img
+                                        className="slice-img-top"
+                                        src={getItem(illusPool, 0).url}
+                                        alt={getItem(illusPool, 0).name}
+                                    />
                                 </div>
                                 <div className="edgy-tag">ILLUST</div>
                             </Link>
                         ) : (
                             <div className="edgy-box edgy-illus-main slice-hover" style={{ flex: 2 }}>
                                 <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
-                                <div className="slice-overlay"><img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                <div className="slice-overlay">
+                                    <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                </div>
                             </div>
                         )}
 
@@ -184,30 +225,50 @@ const EdgyHome = () => {
                             <div className="edgy-box edgy-illus-small slice-hover">
                                 {illusPool.length > 2 ? (
                                     <Link to={`/product/${getItem(illusPool, 2).slug}`}>
-                                        <img className="slice-img-bottom" src={getItem(illusPool, 3).url} alt={getItem(illusPool, 3).name} />
+                                        <img
+                                            className="slice-img-bottom"
+                                            src={getItem(illusPool, 3).url}
+                                            alt={getItem(illusPool, 3).name}
+                                        />
                                         <div className="slice-overlay">
-                                            <img className="slice-img-top" src={getItem(illusPool, 2).url} alt={getItem(illusPool, 2).name} />
+                                            <img
+                                                className="slice-img-top"
+                                                src={getItem(illusPool, 2).url}
+                                                alt={getItem(illusPool, 2).name}
+                                            />
                                         </div>
                                     </Link>
                                 ) : (
                                     <>
                                         <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
-                                        <div className="slice-overlay"><img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                        <div className="slice-overlay">
+                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        </div>
                                     </>
                                 )}
                             </div>
                             <div className="edgy-box edgy-illus-small slice-hover">
                                 {illusPool.length > 4 ? (
                                     <Link to={`/product/${getItem(illusPool, 4).slug}`}>
-                                        <img className="slice-img-bottom" src={getItem(illusPool, 5).url} alt={getItem(illusPool, 5).name} />
+                                        <img
+                                            className="slice-img-bottom"
+                                            src={getItem(illusPool, 5).url}
+                                            alt={getItem(illusPool, 5).name}
+                                        />
                                         <div className="slice-overlay">
-                                            <img className="slice-img-top" src={getItem(illusPool, 4).url} alt={getItem(illusPool, 4).name} />
+                                            <img
+                                                className="slice-img-top"
+                                                src={getItem(illusPool, 4).url}
+                                                alt={getItem(illusPool, 4).name}
+                                            />
                                         </div>
                                     </Link>
                                 ) : (
                                     <>
                                         <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
-                                        <div className="slice-overlay"><img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" /></div>
+                                        <div className="slice-overlay">
+                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        </div>
                                     </>
                                 )}
                             </div>

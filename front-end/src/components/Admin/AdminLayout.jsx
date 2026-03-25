@@ -29,6 +29,7 @@ const AdminLayout = () => {
     { label: 'Dashboard', key: '/admin-dashboard', icon: <PieChartOutlined /> },
     { label: 'Sản phẩm', key: '/admin-dashboard/products', icon: <ShoppingOutlined /> },
     { label: 'Danh mục', key: '/admin-dashboard/categories', icon: <DesktopOutlined /> },
+    { label: 'Quản lý Hero', key: '/admin-dashboard/hero', icon: <DesktopOutlined /> },
     { label: 'Người dùng', key: '/admin-dashboard/users', icon: <TeamOutlined /> },
     { label: 'Cài đặt TOS', key: '/admin-dashboard/tos', icon: <FileOutlined /> },
   ];
