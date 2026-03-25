@@ -6,11 +6,11 @@ import axios from '../../utils/axios';
 import useExchangeRate from '../../hooks/useExchangeRate';
 import './ProductDetail.css';
 
-const formatPrice = (val) => {
+const formatPrice = val => {
     if (!val) return '$0.00';
     const s = String(val);
     if (s.startsWith('$')) return s;
-    // If it's just a number, we might want to ensure two decimal places if possible, 
+    // If it's just a number, we might want to ensure two decimal places if possible,
     // but since it's a string, we'll just prepend $ for simplicity if it doesn't have it.
     return `$${s}`;
 };
@@ -36,7 +36,7 @@ const ProductDetail = () => {
                     category: data.category?.slug || 'unknown',
                     categoryName: data.category?.name || 'Unknown',
                     images: data.images?.map(img => img.url) || [],
-                    coverImage: data.images && data.images.length > 0 ? data.images[0].url : ''
+                    coverImage: data.images && data.images.length > 0 ? data.images[0].url : '',
                 };
                 setProduct(mappedProduct);
                 setActiveImage(mappedProduct.coverImage || (mappedProduct.images && mappedProduct.images[0]) || '');
@@ -64,16 +64,20 @@ const ProductDetail = () => {
         return (
             <div className="detail-container edgy-container">
                 <GlobalBackground />
-                <div className="no-data" style={{ marginTop: '5rem' }}>PRODUCT [{slug}] NOT FOUND</div>
+                <div className="no-data" style={{ marginTop: '5rem' }}>
+                    PRODUCT [{slug}] NOT FOUND
+                </div>
                 <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-                    <Link to="/" className="detail-back-btn">RETURN TO HOME</Link>
+                    <Link to="/" className="detail-back-btn">
+                        RETURN TO HOME
+                    </Link>
                 </div>
             </div>
         );
     }
 
     // Prepare list of gallery images (fallback strictly to cover if images array missing)
-    const galleryItems = (product.images && product.images.length > 0) ? product.images : [product.coverImage];
+    const galleryItems = product.images && product.images.length > 0 ? product.images : [product.coverImage];
 
     return (
         <div className="detail-container edgy-container">
@@ -123,11 +127,7 @@ const ProductDetail = () => {
                     <div className="info-header">
                         <div className="edgy-tag static-tag">{product.categoryName.toUpperCase()}</div>
                         <h1 className="detail-title text-red">{product.title}</h1>
-                        <div className="detail-id">ID: {product.id}</div>
-                    </div>
-
-                    <div className="detail-desc">
-                        <p>{product.description}</p>
+                        {/* <div className="detail-id">ID: {product.id}</div> */}
                     </div>
 
                     <div className="detail-pricing">
@@ -137,16 +137,20 @@ const ProductDetail = () => {
                         </div>
                         {exchangeRate && (
                             <div className="exchange-rate-info">
-                                <span className="rate-text">$1 ≈ {new Intl.NumberFormat('vi-VN').format(exchangeRate)} VND</span>
+                                <span className="rate-text">
+                                    $1 ≈ {new Intl.NumberFormat('vi-VN').format(exchangeRate)} VND
+                                </span>
                             </div>
                         )}
+                    </div>
+
+                    <div className="detail-desc">
+                        <p>{product.description}</p>
                     </div>
 
                     <button className="edgy-button buy-btn">
                         <span>ACQUIRE ASSET</span>
                     </button>
-
-
                 </motion.div>
             </div>
         </div>

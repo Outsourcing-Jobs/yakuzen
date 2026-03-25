@@ -5,31 +5,10 @@ import GlobalBackground from '../../components/Default/GlobalBackground';
 import { Link } from 'react-router-dom';
 import axios from '../../utils/axios';
 
-const socialLinks = [
-    { icon: '𝕏', label: 'Twitter', href: 'https://x.com/yakuzen345' },
-    { icon: '▶', label: 'YouTube', href: 'https://ko-fi.com/yakuzen345' },
-    { icon: '◈', label: 'Pixiv', href: '#' },
-    //   { icon: "⬡", label: "Discord", href: "#" },
-];
-
 const staticCategories = [
     { name: 'TOS', path: '/tos' },
-    { name: "ART SHOWCASE", path: "/art-showcase" },
+    { name: 'VGEN', path: '/vgen' },
 ];
-
-const recentWorksStatic = [
-    // This will be replaced by data from API
-];
-
-const ChainDecor = () => (
-    <div className="chain-row" aria-hidden="true">
-        {Array.from({ length: 1 }).map((_, i) => (
-            <span key={i} className="chain-link-home">
-                @to.dich.nhi
-            </span>
-        ))}
-    </div>
-);
 
 const SpikeBorder = () => (
     <div className="spike-border" aria-hidden="true">
@@ -46,15 +25,34 @@ const HomePage = () => {
     const [activeWork, setActiveWork] = useState(null);
     const [categories, setCategories] = useState(staticCategories);
     const [recentWorks, setRecentWorks] = useState([]);
+    const [heroData, setHeroData] = useState({
+        avatar: { url: 'https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7' },
+        title: 'DICH ✦ DIGITAL ARTIST',
+        bio: "Hi, I'm Yakuzen (Dich), nice to work with you",
+        socialLinks: [
+            { icon: '𝕏', label: 'Twitter', href: 'https://x.com/yakuzen345' },
+            { icon: '▶', label: 'YouTube', href: 'https://ko-fi.com/yakuzen345' },
+            { icon: '◈', label: 'Pixiv', href: '#' },
+        ],
+    });
     const carouselRef = useRef(null);
 
     useEffect(() => {
+        const fetchHeroData = async () => {
+            try {
+                const response = await axios.get('/hero');
+                setHeroData(response.data);
+            } catch (error) {
+                console.error('Error fetching hero data:', error);
+            }
+        };
+
         const fetchCategories = async () => {
             try {
                 const response = await axios.get('/categories');
                 const dynamicCats = response.data.map(cat => ({
                     name: cat.name.toUpperCase(),
-                    path: `/category/${cat.slug}`
+                    path: `/category/${cat.slug}`,
                 }));
                 setCategories([...staticCategories, ...dynamicCats]);
             } catch (error) {
@@ -70,7 +68,7 @@ const HomePage = () => {
                     slug: product.slug,
                     title: product.name,
                     tag: product.category?.name?.toUpperCase() || 'UNCATEGORIZED',
-                    imgUrl: product.images && product.images.length > 0 ? product.images[0].url : ''
+                    imgUrl: product.images && product.images.length > 0 ? product.images[0].url : '',
                 }));
                 setRecentWorks(mappedWorks);
             } catch (error) {
@@ -78,6 +76,7 @@ const HomePage = () => {
             }
         };
 
+        fetchHeroData();
         fetchCategories();
         fetchRecentWorks();
     }, []);
@@ -106,8 +105,7 @@ const HomePage = () => {
                         <div className="hp-avatar-ring hp-avatar-ring--2" />
                         <div className="hp-avatar">
                             <span className="hp-avatar__placeholder">
-                                {/* <img src="https://i.redd.it/gs5zwxdzpnog1.jpeg" alt="" /> */}
-                                <img src="https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7" />
+                                <img src={heroData.avatar?.url} alt="Avatar" />
                             </span>
                         </div>
                         {/* paw print deco */}
@@ -116,12 +114,12 @@ const HomePage = () => {
                     </div>
 
                     <p className="hp-bio">
-                        <span className="hp-bio__line">DICH ✦ DIGITAL ARTIST</span>
-                        <span className="hp-bio__line">Hi, I'm Yakuzen (Dich), nice to work with you</span>
+                        <span className="hp-bio__line">{heroData.title}</span>
+                        <span className="hp-bio__line">{heroData.bio}</span>
                     </p>
 
                     <div className="hp-socials">
-                        {socialLinks.map(s => (
+                        {heroData.socialLinks?.map(s => (
                             <a key={s.label} href={s.href} className="hp-social-btn" title={s.label}>
                                 <span className="hp-social-btn__icon">{s.icon}</span>
                                 <span className="hp-social-btn__bar" />
@@ -159,14 +157,14 @@ const HomePage = () => {
                     <nav className="hp-categories">
                         {categories.map((cat, i) => (
                             <Link key={cat.name} to={cat.path} className="hp-cat-link">
-                                <span className="hp-cat-link__num">0{i + 1}</span>
+                                {/* <span className="hp-cat-link__num">0{i + 1}</span> */}
                                 <span className="hp-cat-link__label">{cat.name}</span>
                                 <span className="hp-cat-link__arrow">→</span>
                             </Link>
                         ))}
                     </nav>
 
-                    <ChainDecor />
+                    {/* <ChainDecor /> */}
                 </div>
 
                 <SpikeBorder />
@@ -199,7 +197,7 @@ const HomePage = () => {
                         slidesToScroll={1}
                         infinite
                         autoplay
-                        autoplaySpeed={1000}
+                        autoplaySpeed={2000}
                         responsive={[
                             { breakpoint: 960, settings: { slidesToShow: 2 } },
                             { breakpoint: 600, settings: { slidesToShow: 1 } },
@@ -251,7 +249,7 @@ const HomePage = () => {
 
             {/* footer chain */}
             <footer className="hp-footer">
-                <ChainDecor />
+                {/* <ChainDecor /> */}
                 <p className="hp-footer__copy">© YAKUZEN · ALL RIGHTS RESERVED · 犬</p>
             </footer>
         </div>

@@ -40,6 +40,7 @@ const categoryRoutes = require('./routes/category.routes');
 const productRoutes = require('./routes/product.routes');
 const userRoutes = require('./routes/user.routes');
 const settingRoutes = require('./routes/setting.routes');
+const heroRoutes = require('./routes/hero.route');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tos', tosRoutes);
@@ -47,3 +48,4 @@ app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/settings', settingRoutes);
+app.use('/api/hero', heroRoutes);

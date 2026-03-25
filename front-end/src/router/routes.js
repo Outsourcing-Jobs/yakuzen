@@ -12,6 +12,7 @@ import AdminTOS from '../pages/Admin/AdminTOS';
 import AdminCategory from '../pages/Admin/AdminCategory';
 import AdminUser from '../pages/Admin/AdminUser';
 import AdminProduct from '../pages/Admin/AdminProduct';
+import AdminHero from '../pages/Admin/AdminHero';
 
 export const langRoutes = [
     {
@@ -79,6 +80,10 @@ export const globalRoutes = [
             {
                 path: 'products',
                 page: AdminProduct
+            },
+            {
+                path: 'hero',
+                page: AdminHero
             }
         ]
     },
