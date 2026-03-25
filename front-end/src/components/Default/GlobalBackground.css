@@ -1,10 +1,10 @@
 /* GlobalBackground.css */
 
 :root {
-  --bg-paw-color: rgba(230, 0, 0, 0.65);
-  --bg-bubble-color: rgba(230, 0, 0, 0.15);
-  --bg-bubble-border: rgba(230, 0, 0, 0.4);
-  --cursor-glow-color: rgba(200, 0, 0, 0.25); 
+  --bg-paw-color: rgba(230, 0, 0, 0.25); /* Softened from 0.65 */
+  --bg-bubble-color: rgba(230, 0, 0, 0.1);
+  --bg-bubble-border: rgba(230, 0, 0, 0.2);
+  --cursor-glow-color: rgba(200, 0, 0, 0.15); /* Softened from 0.25 */
 }
 
 .global-bg-wrapper {
@@ -87,8 +87,8 @@
   position: absolute;
   color: var(--bg-paw-color);
   user-select: none;
-  /* Replaced drop-shadow with text-shadow for massive performance gain */
-  text-shadow: 0 0 16px rgba(255, 30, 30, 0.8);
+  /* Softened shadow for a cleaner look */
+  text-shadow: 0 0 12px rgba(255, 30, 30, 0.4);
 }
 
 .bubble {

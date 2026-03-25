@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "./GlobalBackground.css";
 
-const PAWS_COUNT = 160;
+const PAWS_COUNT = 30; // Reduced from 160 for a cleaner look
 const BUBBLES_COUNT = 100;
 
 const GlobalBackground = () => {

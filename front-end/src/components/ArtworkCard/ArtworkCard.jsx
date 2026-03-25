@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './ArtworkCard.css';
 
-const formatCurrency = (amount, currency) => {
-    return new Intl.NumberFormat(currency === 'VND' ? 'vi-VN' : 'en-US', {
-        style: 'currency',
-        currency: currency,
-    }).format(amount);
+const formatPrice = (val) => {
+    if (!val) return '$0.00';
+    const s = String(val);
+    if (s.startsWith('$')) return s;
+    return `$${s}`;
 };
 
 const ArtworkCard = ({ item }) => {
@@ -22,9 +22,7 @@ const ArtworkCard = ({ item }) => {
                 <div className="card-info">
                     <h3 className="card-title">{item.title}</h3>
                     <div className="card-prices">
-                        <span className="price-vnd">{formatCurrency(item.priceVnd, 'VND')}</span>
-                        <span className="price-sep"> // </span>
-                        <span className="price-usd">{formatCurrency(item.priceUsd, 'USD')}</span>
+                        <span className="price-usd">{formatPrice(item.price)}</span>
                     </div>
                 </div>
             </div>
