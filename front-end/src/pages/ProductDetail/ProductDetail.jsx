@@ -3,14 +3,16 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import GlobalBackground from '../../components/Default/GlobalBackground';
 import axios from '../../utils/axios';
+import useExchangeRate from '../../hooks/useExchangeRate';
 import './ProductDetail.css';
 
-const formatCurrency = (amount, currency) => {
-    if (!amount) return currency === 'VND' ? '0 ₫' : '$0.00';
-    return new Intl.NumberFormat(currency === 'VND' ? 'vi-VN' : 'en-US', {
-        style: 'currency',
-        currency: currency,
-    }).format(amount);
+const formatPrice = (val) => {
+    if (!val) return '$0.00';
+    const s = String(val);
+    if (s.startsWith('$')) return s;
+    // If it's just a number, we might want to ensure two decimal places if possible, 
+    // but since it's a string, we'll just prepend $ for simplicity if it doesn't have it.
+    return `$${s}`;
 };
 
 const ProductDetail = () => {
@@ -18,6 +20,7 @@ const ProductDetail = () => {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [activeImage, setActiveImage] = useState('');
+    const { rate: exchangeRate } = useExchangeRate();
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -29,8 +32,7 @@ const ProductDetail = () => {
                     id: data._id,
                     title: data.name,
                     description: data.description,
-                    priceVnd: data.price,
-                    priceUsd: Math.round((data.price / 25000) * 100) / 100,
+                    price: data.price,
                     category: data.category?.slug || 'unknown',
                     categoryName: data.category?.name || 'Unknown',
                     images: data.images?.map(img => img.url) || [],
@@ -129,23 +131,22 @@ const ProductDetail = () => {
                     </div>
 
                     <div className="detail-pricing">
-                        <div className="price-box">
-                            <span className="price-label">VNĐ</span>
-                            <span className="price-value">{formatCurrency(product.priceVnd, 'VND')}</span>
-                        </div>
                         <div className="price-box usd">
-                            <span className="price-label">USD</span>
-                            <span className="price-value">{formatCurrency(product.priceUsd, 'USD')}</span>
+                            <span className="price-label">USD ($)</span>
+                            <span className="price-value">{product.price}</span>
                         </div>
+                        {exchangeRate && (
+                            <div className="exchange-rate-info">
+                                <span className="rate-text">$1 ≈ {new Intl.NumberFormat('vi-VN').format(exchangeRate)} VND</span>
+                            </div>
+                        )}
                     </div>
 
                     <button className="edgy-button buy-btn">
                         <span>ACQUIRE ASSET</span>
                     </button>
 
-                    <div className="edgy-chain-row detail-chain">
-                        {/* ⛓🔗⛓🔗⛓ */}
-                    </div>
+
                 </motion.div>
             </div>
         </div>

@@ -5,7 +5,7 @@ const { cloudinary } = require('../config/cloudinary');
 
 exports.createProduct = async (req, res) => {
   try {
-    const { name, category, price, discountPrice, description, isAvailable, order } = req.body;
+    const { name, category, price, description, isAvailable, order } = req.body;
 
     if (!name || !category || !price) {
       return res.status(400).json({ message: 'Tên, Category và Giá là bắt buộc' });
@@ -35,7 +35,6 @@ exports.createProduct = async (req, res) => {
       slug,
       category,
       price,
-      discountPrice,
       description,
       isAvailable,
       order: order || 0,
@@ -112,7 +111,7 @@ exports.getProductBySlug = async (req, res) => {
 exports.updateProductDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, price, discountPrice, description, isAvailable, order, imageOrders } = req.body;
+    const { name, category, price, description, isAvailable, order, imageOrders } = req.body;
 
     const product = await Product.findById(id);
     if (!product) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
@@ -123,7 +122,6 @@ exports.updateProductDetails = async (req, res) => {
     }
     if (category) product.category = category;
     if (price !== undefined) product.price = price;
-    if (discountPrice !== undefined) product.discountPrice = discountPrice;
     if (description !== undefined) product.description = description;
     if (isAvailable !== undefined) product.isAvailable = isAvailable;
     if (order !== undefined) product.order = order;

@@ -192,10 +192,10 @@ const AdminProduct = () => {
       render: (text) => <Text strong>{text}</Text>
     },
     { 
-      title: 'Giá (VNĐ)', 
+      title: 'Giá', 
       dataIndex: 'price', 
       key: 'price', 
-      render: (price) => <Text style={{ color: '#f5222d' }}>{price?.toLocaleString()}</Text> 
+      render: (price) => <Text style={{ color: '#f5222d' }}>{price}</Text> 
     },
     { 
       title: 'Danh mục', 
@@ -298,12 +298,10 @@ const AdminProduct = () => {
               
               <Row gutter={16}>
                 <Col span={12}>
-                  <Form.Item name="price" label={<Text strong>Giá bán (VNĐ)</Text>} rules={[{ required: true }]}>
-                    <InputNumber 
+                  <Form.Item name="price" label={<Text strong>Giá bán (USD Text)</Text>} rules={[{ required: true, message: 'Vui lòng nhập giá' }]}>
+                    <Input 
                       size="large"
-                      style={{ width: '100%' }} 
-                      formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')} 
-                      parser={value => value.replace(/\$\s?|(,*)/g, '')}
+                      placeholder="VD: 50.00 hoặc $50.00 hoặc Liên hệ"
                     />
                   </Form.Item>
                 </Col>

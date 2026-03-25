@@ -23,9 +23,9 @@ const recentWorksStatic = [
 
 const ChainDecor = () => (
     <div className="chain-row" aria-hidden="true">
-        {Array.from({ length: 6 }).map((_, i) => (
-            <span key={i} className="chain-link">
-                @to.la.dich@haha
+        {Array.from({ length: 1 }).map((_, i) => (
+            <span key={i} className="chain-link-home">
+                @to.dich.nhi
             </span>
         ))}
     </div>
@@ -199,7 +199,7 @@ const HomePage = () => {
                         slidesToScroll={1}
                         infinite
                         autoplay
-                        autoplaySpeed={2500}
+                        autoplaySpeed={1000}
                         responsive={[
                             { breakpoint: 960, settings: { slidesToShow: 2 } },
                             { breakpoint: 600, settings: { slidesToShow: 1 } },

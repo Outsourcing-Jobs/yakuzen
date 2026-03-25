@@ -16,7 +16,7 @@
 
 .detail-back-btn {
     display: inline-block;
-    color: #777;
+    color: #afaeae;
     text-decoration: none;
     font-family: 'Courier New', Courier, monospace;
     font-weight: bold;
@@ -203,6 +203,22 @@
     background: rgba(255, 42, 42, 0.05);
 }
 
+.exchange-rate-info {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75rem;
+    color: #888;
+    text-align: right;
+    margin-top: 0.2vh;
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.rate-text {
+    border-right: 2px solid #ff2a2a;
+    padding-right: 0.5rem;
+}
+
 .price-label {
     font-family: 'Impact', 'Arial Black', sans-serif;
     font-size: 1.1rem;
@@ -215,8 +231,9 @@
 }
 
 .price-value {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Impact', 'Arial Black', sans-serif;
     font-size: 1.6rem;
+    text-transform: capitalize;
     font-weight: bold;
     color: #fff;
 }

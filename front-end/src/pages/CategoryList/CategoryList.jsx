@@ -4,13 +4,15 @@ import { motion } from 'framer-motion';
 import GlobalBackground from '../../components/Default/GlobalBackground';
 import ArtworkCard from '../../components/ArtworkCard/ArtworkCard';
 import axios from '../../utils/axios';
+import useExchangeRate from '../../hooks/useExchangeRate';
 import './CategoryList.css';
 
 const CategoryList = () => {
     const { categoryId } = useParams();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    
+    const { rate: exchangeRate } = useExchangeRate();
+
     // Format title safely
     const formattedTitle = categoryId ? categoryId.replace(/-/g, ' ').toUpperCase() : 'ALL ARTWORKS';
 
@@ -23,8 +25,7 @@ const CategoryList = () => {
                     id: product._id,
                     title: product.name,
                     description: product.description,
-                    priceVnd: product.price,
-                    priceUsd: Math.round((product.price / 25000) * 100) / 100,
+                    price: product.price,
                     coverImage: product.images && product.images.length > 0 ? product.images[0].url : '',
                     category: categoryId,
                     slug: product.slug,
@@ -49,13 +50,18 @@ const CategoryList = () => {
                 <Link to="/" className="back-btn">◄ BACK TO HOME</Link>
                 <h1 className="edgy-title text-red" style={{ fontSize: '4rem', marginTop: '2rem' }}>{formattedTitle}</h1>
                 <p className="cat-subtitle">BROWSE OUR EXCLUSIVE COLLECTION</p>
+                {exchangeRate && (
+                    <div className="cat-exchange-rate">
+                        <span className="rate-line">$1 ≈ {new Intl.NumberFormat('vi-VN').format(exchangeRate)} VND</span>
+                    </div>
+                )}
             </div>
 
             <div className="cat-content">
                 {loading ? (
                     <div className="loading-state">LOADING EXCLUSIVE WORKS...</div>
                 ) : products.length > 0 ? (
-                    <motion.div 
+                    <motion.div
                         className="cat-grid"
                         initial="hidden"
                         animate="visible"
