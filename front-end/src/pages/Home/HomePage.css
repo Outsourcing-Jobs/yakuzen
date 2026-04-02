@@ -132,6 +132,7 @@ html {
 }
 
 @keyframes spike-flicker {
+
     0%,
     100% {
         opacity: 0.7;
@@ -254,6 +255,7 @@ html {
 }
 
 @keyframes paw-bounce {
+
     0%,
     100% {
         transform: scale(1) rotate(var(--r, 0deg));
@@ -365,6 +367,7 @@ html {
     }
 
     @keyframes paw-bounce {
+
         0%,
         100% {
             transform: scale(1) rotate(var(--r, 0deg));
@@ -387,6 +390,7 @@ html {
 
 /* prefers-reduced-motion giữ nguyên như cũ */
 @media (prefers-reduced-motion: reduce) {
+
     .hp-avatar-ring,
     .hp-avatar-ring--2,
     .paw {
@@ -526,6 +530,7 @@ html {
 }
 
 @keyframes slash-grow {
+
     0%,
     100% {
         transform: rotate(-20deg) scaleY(1);
@@ -633,6 +638,7 @@ html {
 }
 
 @keyframes dot-blink {
+
     0%,
     100% {
         opacity: 1;
@@ -645,75 +651,84 @@ html {
     }
 }
 
-/* Categories nav */
+/* Categories nav - Pill Design */
 .hp-categories {
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    max-width: 360px;
+    gap: 14px;
+    max-width: 400px;
+    margin-top: 20px;
 }
 
 .hp-cat-link {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    background: var(--dark2);
-    border: 1px solid var(--gray);
-    border-left: 3px solid transparent;
+    padding: 6px;
+    /* Spacing for the internal icon box */
+    padding-right: 32px;
+    /* More space on the right for centering feel */
+    background: #8b0000;
+    /* Deep Red / Maroon */
+    border: 2px solid #ffffff;
+    /* White border as in reference */
+    border-radius: 999px;
     text-decoration: none;
-    color: var(--silver);
-    font-family: var(--font-display);
-    font-size: 18px;
-    letter-spacing: 0.1em;
-    transition: all 0.3s var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-.hp-cat-link::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 0;
-    background: rgba(200, 0, 0, 0.07);
-    transition: width 0.3s var(--transition);
-}
-
-.hp-cat-link:hover::before {
-    width: 100%;
-}
-
-.hp-cat-link:hover {
-    border-left-color: #c90021;
     color: #ffffff;
-    transform: translateX(12px);
+    font-family: var(--font-display);
+    font-size: clamp(20px, 2.5vw, 28px);
+    letter-spacing: 0.12em;
+    font-weight: bold;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: fit-content;
+    min-width: 350px;
 }
 
-.hp-cat-link__num {
-    font-size: 11px;
-    color: var(--red);
-    letter-spacing: 0.1em;
-    min-width: 24px;
+.hp-cat-link__icon-box {
+    width: 48px;
+    height: 48px;
+    background: #2e2e2e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.hp-cat-link__icon-v {
+    color: #ffffff;
+    font-size: 24px;
+    font-family: var(--font-display);
+    line-height: 1;
+    transform: translateY(1px);
 }
 
 .hp-cat-link__label {
     flex: 1;
     text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.hp-cat-link__arrow {
-    font-size: 14px;
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: all 0.3s;
+/* Hover Effects */
+.hp-cat-link:hover {
+    transform: translateX(10px) scale(1.02);
+    background: #b30000;
+    /* Lighter red on hover */
+    box-shadow:
+        0 10px 25px rgba(139, 0, 0, 0.4),
+        0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-.hp-cat-link:hover .hp-cat-link__arrow {
-    opacity: 1;
-    transform: none;
+.hp-cat-link:hover .hp-cat-link__icon-box {
+    transform: rotate(-10deg) scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+.hp-cat-link:active {
+    transform: translateX(5px) scale(0.98);
 }
 
 /* ================================================
@@ -1037,7 +1052,7 @@ html {
 /* ================================================
    ANTD CAROUSEL OVERRIDES
    ================================================ */
-.hp-carousel-wrap .slick-slide > div {
+.hp-carousel-wrap .slick-slide>div {
     padding: 0;
 }
 

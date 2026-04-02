@@ -157,9 +157,10 @@ const HomePage = () => {
                     <nav className="hp-categories">
                         {categories.map((cat, i) => (
                             <Link key={cat.name} to={cat.path} className="hp-cat-link">
-                                {/* <span className="hp-cat-link__num">0{i + 1}</span> */}
+                                <div className="hp-cat-link__icon-box">
+                                    <span className="hp-cat-link__icon-v">◈</span>
+                                </div>
                                 <span className="hp-cat-link__label">{cat.name}</span>
-                                <span className="hp-cat-link__arrow">→</span>
                             </Link>
                         ))}
                     </nav>
