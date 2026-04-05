@@ -87,81 +87,89 @@ const EdgyHome = () => {
                     </h2>
 
                     <div className="edgy-gallery-model">
-                        <div className="edgy-box flip-container">
+                        <div className="edgy-box edgy-model-main slice-hover">
                             {modelPool.length > 0 ? (
                                 <Link
                                     to={`/product/${getItem(modelPool, 0).slug}`}
-                                    className="flipper"
-                                    style={{ display: 'block' }}
+                                    style={{ display: 'block', height: '100%' }}
                                 >
-                                    <div className="front">
-                                        <img src={getItem(modelPool, 0).url} alt={getItem(modelPool, 0).name} />
-                                        <div className="edgy-tag">MODEL</div>
+                                    <img
+                                        className="slice-img-bottom"
+                                        src={getItem(modelPool, 1).url}
+                                        alt={getItem(modelPool, 1).name}
+                                    />
+                                    <div className="slice-overlay">
+                                        <img
+                                            className="slice-img-top"
+                                            src={getItem(modelPool, 0).url}
+                                            alt={getItem(modelPool, 0).name}
+                                        />
                                     </div>
-                                    <div className="back">
-                                        <img src={getItem(modelPool, 1).url} alt={getItem(modelPool, 1).name} />
-                                        <div className="edgy-tag">ART</div>
-                                    </div>
+                                    <div className="edgy-tag">MODEL</div>
                                 </Link>
                             ) : (
-                                <div className="flipper">
-                                    <div className="front">
-                                        <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
-                                    </div>
-                                    <div className="back">
-                                        <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                <div style={{ height: '100%' }}>
+                                    <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                    <div className="slice-overlay">
+                                        <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
                                     </div>
                                 </div>
                             )}
                         </div>
 
                         <div className="edgy-gallery-side">
-                            <div className="edgy-box flip-container small">
+                            <div className="edgy-box edgy-model-small slice-hover">
                                 {modelPool.length > 2 ? (
                                     <Link
                                         to={`/product/${getItem(modelPool, 2).slug}`}
-                                        className="flipper"
-                                        style={{ display: 'block' }}
+                                        style={{ display: 'block', height: '100%' }}
                                     >
-                                        <div className="front">
-                                            <img src={getItem(modelPool, 2).url} alt={getItem(modelPool, 2).name} />
-                                        </div>
-                                        <div className="back">
-                                            <img src={getItem(modelPool, 3).url} alt={getItem(modelPool, 3).name} />
+                                        <img
+                                            className="slice-img-bottom"
+                                            src={getItem(modelPool, 3).url}
+                                            alt={getItem(modelPool, 3).name}
+                                        />
+                                        <div className="slice-overlay">
+                                            <img
+                                                className="slice-img-top"
+                                                src={getItem(modelPool, 2).url}
+                                                alt={getItem(modelPool, 2).name}
+                                            />
                                         </div>
                                     </Link>
                                 ) : (
-                                    <div className="flipper">
-                                        <div className="front">
-                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
-                                        </div>
-                                        <div className="back">
-                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                    <div style={{ height: '100%' }}>
+                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <div className="slice-overlay">
+                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
                                         </div>
                                     </div>
                                 )}
                             </div>
-                            <div className="edgy-box flip-container small">
+                            <div className="edgy-box edgy-model-small slice-hover">
                                 {modelPool.length > 4 ? (
                                     <Link
                                         to={`/product/${getItem(modelPool, 4).slug}`}
-                                        className="flipper"
-                                        style={{ display: 'block' }}
+                                        style={{ display: 'block', height: '100%' }}
                                     >
-                                        <div className="front">
-                                            <img src={getItem(modelPool, 4).url} alt={getItem(modelPool, 4).name} />
-                                        </div>
-                                        <div className="back">
-                                            <img src={getItem(modelPool, 5).url} alt={getItem(modelPool, 5).name} />
+                                        <img
+                                            className="slice-img-bottom"
+                                            src={getItem(modelPool, 5).url}
+                                            alt={getItem(modelPool, 5).name}
+                                        />
+                                        <div className="slice-overlay">
+                                            <img
+                                                className="slice-img-top"
+                                                src={getItem(modelPool, 4).url}
+                                                alt={getItem(modelPool, 4).name}
+                                            />
                                         </div>
                                     </Link>
                                 ) : (
-                                    <div className="flipper">
-                                        <div className="front">
-                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
-                                        </div>
-                                        <div className="back">
-                                            <img src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                    <div style={{ height: '100%' }}>
+                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <div className="slice-overlay">
+                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
                                         </div>
                                     </div>
                                 )}
