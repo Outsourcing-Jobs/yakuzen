@@ -7,7 +7,7 @@ import axios from '../../utils/axios';
 
 const staticCategories = [
     { name: 'TOS', path: '/tos' },
-    { name: 'VGEN', path: '/vgen' },
+    { name: 'VGEN', path: 'https://vgen.co/Yakuzen345' },
 ];
 
 const SpikeBorder = () => (
@@ -155,14 +155,24 @@ const HomePage = () => {
                     </div>
 
                     <nav className="hp-categories">
-                        {categories.map((cat, i) => (
-                            <Link key={cat.name} to={cat.path} className="hp-cat-link">
-                                <div className="hp-cat-link__icon-box">
-                                    <span className="hp-cat-link__icon-v">◈</span>
-                                </div>
-                                <span className="hp-cat-link__label">{cat.name}</span>
-                            </Link>
-                        ))}
+                        {categories.map((cat, i) => {
+                            const isExternal = cat.path.startsWith('http');
+                            return isExternal ? (
+                                <a key={cat.name} href={cat.path} target="_blank" rel="noopener noreferrer" className="hp-cat-link">
+                                    <div className="hp-cat-link__icon-box">
+                                        <span className="hp-cat-link__icon-v">◈</span>
+                                    </div>
+                                    <span className="hp-cat-link__label">{cat.name}</span>
+                                </a>
+                            ) : (
+                                <Link key={cat.name} to={cat.path} className="hp-cat-link">
+                                    <div className="hp-cat-link__icon-box">
+                                        <span className="hp-cat-link__icon-v">◈</span>
+                                    </div>
+                                    <span className="hp-cat-link__label">{cat.name}</span>
+                                </Link>
+                            );
+                        })}
                     </nav>
 
                     {/* <ChainDecor /> */}
