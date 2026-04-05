@@ -4,6 +4,9 @@ import Default from './components/Default/Default';
 import { globalRoutes, langRoutes } from './router/routes';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import GlobalMenu from './components/Default/GlobalMenu';
+import LoadingScreen from './components/Default/LoadingScreen';
+import { AnimatePresence } from 'framer-motion';
+import axios from './utils/axios';
 
 function AppContent({ isAdmin, setIsAdmin }) {
     const location = useLocation();
@@ -17,7 +20,7 @@ function AppContent({ isAdmin, setIsAdmin }) {
         <>
             {!isGlobalRoute && <GlobalMenu isAdmin={isAdmin} />}
 
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={null}>
                 <Routes>
                     {[...langRoutes, ...globalRoutes].map(({ path, page: Page, isPrivate, isShowHeader, footerType, children }, idx) => {
                         const Layout = isShowHeader ? Default : Fragment;
@@ -59,6 +62,8 @@ function AppContent({ isAdmin, setIsAdmin }) {
 }
 
 function App() {
+    const [isAppReady, setIsAppReady] = useState(false);
+
     const getInitialAdminState = () => {
         try {
             const storedUser = localStorage.getItem('user');
@@ -75,10 +80,34 @@ function App() {
 
     const [isAdmin, setIsAdmin] = useState(getInitialAdminState());
 
+    useEffect(() => {
+        const wakeUpServer = async () => {
+            try {
+                // Ping basic endpoint to wake up Render server
+                await axios.get('/hero');
+            } catch (error) {
+                console.error('Server wake up error:', error);
+            } finally {
+                // Always ready, even if request fails (server might be up but 404 or something)
+                setIsAppReady(true);
+            }
+        };
+
+        wakeUpServer();
+    }, []);
+
     return (
-        <Router>
-            <AppContent isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
-        </Router>
+        <>
+            {/* <AnimatePresence mode="wait">
+                {!isAppReady && <LoadingScreen key="loader" />}
+            </AnimatePresence>
+
+            {isAppReady && (
+            )} */}
+            <Router>
+                <AppContent isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+            </Router>
+        </>
     );
 }
 
