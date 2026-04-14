@@ -9,7 +9,7 @@ router.get('/slug/:slug', productController.getProductBySlug);
 // API tạo mới sản phẩm với tối đa 5 ảnh
 router.post('/', upload.array('images', 5), productController.createProduct);
 
-router.put('/:id', productController.updateProductDetails);
+router.put('/:id', upload.array('images', 8), productController.updateProductDetails);
 router.delete('/:id', productController.deleteProduct);
 
 module.exports = router;

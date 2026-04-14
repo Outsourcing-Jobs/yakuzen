@@ -15,6 +15,7 @@ const { Title, Text } = Typography;
 const AdminCategory = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
   const [form] = Form.useForm();
@@ -48,18 +49,21 @@ const AdminCategory = () => {
   };
 
   const handleDelete = async (id) => {
+    setLoading(true);
     try {
       await axios.delete(`/categories/${id}`);
       message.success('Đã xóa danh mục');
       fetchCategories();
     } catch (error) {
       message.error('Xóa thất bại');
+      setLoading(false);
     }
   };
 
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
+      setSubmitting(true);
       if (editingCategory) {
         await axios.put(`/categories/${editingCategory._id}`, values);
         message.success('Cập nhật thành công');
@@ -70,7 +74,11 @@ const AdminCategory = () => {
       setIsModalOpen(false);
       fetchCategories();
     } catch (error) {
-      message.error('Có lỗi xảy ra khi lưu');
+      if (error.name !== 'ValidationError') {
+        message.error('Có lỗi xảy ra khi lưu');
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -173,7 +181,8 @@ const AdminCategory = () => {
         }
         open={isModalOpen}
         onOk={handleOk}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={() => !submitting && setIsModalOpen(false)}
+        confirmLoading={submitting}
         width={500}
         okText="Lưu thay đổi"
         cancelText="Hủy bỏ"

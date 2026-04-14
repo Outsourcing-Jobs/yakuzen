@@ -19,6 +19,7 @@ const AdminProduct = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [fileList, setFileList] = useState([]);
@@ -101,41 +102,32 @@ const AdminProduct = () => {
   const handleOk = async () => {
     try {
       const values = await form.validateFields();
-      
-      if (editingProduct) {
-        // Cập nhật thông tin chi tiết và thứ tự ảnh
-        await axios.put(`/products/${editingProduct._id}`, {
-          ...values,
-          imageOrders: imageOrders.map(({ public_id, order }) => ({ public_id, order }))
-        });
-
-        // Nếu có upload ảnh mới
-        if (fileList.length > 0) {
-           const formData = new FormData();
-           fileList.forEach((file) => {
-             if (file.originFileObj) {
-               formData.append('images', file.originFileObj);
-             }
-           });
-           // Backend update hiện chưa handle gộp chung, ta gợi ý user upload riêng hoặc xử lý gộp
-           await axios.put(`/products/${editingProduct._id}`, formData, {
-              headers: { 'Content-Type': 'multipart/form-data' },
-           });
+      setSubmitting(true);
+      const formData = new FormData();
+      // Append all metadata to FormData
+      Object.keys(values).forEach(key => {
+        if (values[key] !== undefined && values[key] !== null) {
+          formData.append(key, values[key]);
         }
+      });
 
+      // Append imageOrders as JSON string if editing
+      if (editingProduct) {
+        formData.append('imageOrders', JSON.stringify(imageOrders.map(({ public_id, order }) => ({ public_id, order }))));
+      }
+
+      // Append new images
+      fileList.forEach((file) => {
+        if (file.originFileObj) {
+          formData.append('images', file.originFileObj);
+        }
+      });
+      if (editingProduct) {
+        await axios.put(`/products/${editingProduct._id}`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
         message.success('Cập nhật thành công');
       } else {
-        const formData = new FormData();
-        Object.keys(values).forEach(key => {
-          formData.append(key, values[key]);
-        });
-        
-        fileList.forEach((file) => {
-          if (file.originFileObj) {
-            formData.append('images', file.originFileObj);
-          }
-        });
-
         await axios.post('/products', formData, {
           headers: { 'Content-Type': 'multipart/form-data' },
         });
@@ -144,8 +136,12 @@ const AdminProduct = () => {
       setIsModalOpen(false);
       fetchProducts();
     } catch (error) {
-      console.error(error);
-      message.error('Có lỗi xảy ra khi lưu');
+      if (error.name !== 'ValidationError') {
+        console.error(error);
+        message.error('Có lỗi xảy ra khi lưu');
+      }
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -153,6 +149,10 @@ const AdminProduct = () => {
     setImageOrders(prev => prev.map(img => 
       img.public_id === public_id ? { ...img, order: newOrder } : img
     ).sort((a, b) => a.order - b.order));
+  };
+
+  const handleRemoveExistingImage = (public_id) => {
+    setImageOrders(prev => prev.filter(img => img.public_id !== public_id));
   };
 
   const columns = [
@@ -281,7 +281,8 @@ const AdminProduct = () => {
         }
         open={isModalOpen}
         onOk={handleOk}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={() => !submitting && setIsModalOpen(false)}
+        confirmLoading={submitting}
         width={900}
         okText="Lưu thay đổi"
         cancelText="Hủy bỏ"
@@ -362,6 +363,14 @@ const AdminProduct = () => {
                         />
                       }
                       bodyStyle={{ padding: '12px' }}
+                      extra={
+                        <Button 
+                          type="text" 
+                          danger 
+                          icon={<DeleteOutlined />} 
+                          onClick={() => handleRemoveExistingImage(item.public_id)} 
+                        />
+                      }
                     >
                       <Space direction="vertical" style={{ width: '100%' }}>
                         <Text size="small" type="secondary">Thứ tự:</Text>
