@@ -64,7 +64,7 @@ const Register = () => {
             <div className="register-form-side">
                 <div className="register-card-v2">
                     <div className="register-logo-v2">
-                        <SafeImage src='https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyNjJ3OTVvdmY4eTk0ajlxNjRudnN1bzJleDNqN2JjbjB1Zng4b3NpdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/L05HgB2h6qICDs5Sms/200.gif' alt="ArtVerse Logo" />
+                        {/* <SafeImage src='https://marketplace.canva.com/e6NBQ/MAGm3pe6NBQ/1/tl/canva-chibi-animal-icon-MAGm3pe6NBQ.png' alt="ArtVerse Logo" /> */}
                         <Title level={3} style={{ margin: '16px 0 8px' }}>Join the Studio</Title>
                         <Text type="secondary">Create your art profile and start sharing your passion</Text>
                     </div>
