@@ -64,7 +64,7 @@ const Login = ({ setIsAdmin }) => {
             <div className="login-form-side">
                 <div className="login-card-v2">
                     <div className="login-logo-v2">
-                        <SafeImage src='https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyNjJ3OTVvdmY4eTk0ajlxNjRudnN1bzJleDNqN2JjbjB1Zng4b3NpdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/L05HgB2h6qICDs5Sms/200.gif' alt="ArtVerse Logo" />
+                        {/* <SafeImage src='' alt="ArtVerse Logo" /> */}
                         <Title level={3} style={{ margin: '16px 0 8px' }}>Welcome Back!</Title>
                         <Text type="secondary">Continue your creative journey</Text>
                     </div>
