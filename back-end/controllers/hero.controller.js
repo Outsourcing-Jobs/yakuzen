@@ -1,4 +1,5 @@
 const Hero = require('../models/Hero');
+const { cloudinary } = require('../config/cloudinary');
 
 exports.getHero = async (req, res) => {
     try {
@@ -36,6 +37,15 @@ exports.updateHero = async (req, res) => {
         }
 
         if (hero) {
+            // Delete old avatar from Cloudinary if a new file is uploaded
+            if (req.file && hero.avatar && hero.avatar.public_id) {
+                try {
+                    await cloudinary.uploader.destroy(hero.avatar.public_id);
+                } catch (err) {
+                    console.error('Error deleting old avatar from Cloudinary:', err);
+                }
+            }
+
             hero.avatar = avatar || hero.avatar;
             hero.title = title || hero.title;
             hero.bio = bio || hero.bio;

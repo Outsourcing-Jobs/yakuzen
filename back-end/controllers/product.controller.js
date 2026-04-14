@@ -111,11 +111,21 @@ exports.getProductBySlug = async (req, res) => {
 exports.updateProductDetails = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, category, price, description, isAvailable, order, imageOrders } = req.body;
+    let { name, category, price, description, isAvailable, order, imageOrders } = req.body;
+
+    // Parse imageOrders if it's a string (from FormData)
+    if (typeof imageOrders === 'string') {
+      try {
+        imageOrders = JSON.parse(imageOrders);
+      } catch (e) {
+        imageOrders = [];
+      }
+    }
 
     const product = await Product.findById(id);
     if (!product) return res.status(404).json({ message: 'Không tìm thấy sản phẩm' });
 
+    // 1. Cập nhật metadata đơn giản
     if (name) {
       product.name = name;
       product.slug = slugify(name, { lower: true, strict: true });
@@ -126,13 +136,43 @@ exports.updateProductDetails = async (req, res) => {
     if (isAvailable !== undefined) product.isAvailable = isAvailable;
     if (order !== undefined) product.order = order;
 
-    // Cập nhật thứ tự ảnh (nhận array imageOrders: [{ public_id, order }, ...])
-    if (imageOrders && Array.isArray(imageOrders)) {
+    // 2. Xử lý xoá ảnh cũ nếu không có trong imageOrders
+    if (Array.isArray(imageOrders)) {
+      const currentImages = product.images || [];
+      const imagesToDelete = currentImages.filter(img => 
+        !imageOrders.some(o => o.public_id === img.public_id)
+      );
+
+      for (const img of imagesToDelete) {
+        try {
+          await cloudinary.uploader.destroy(img.public_id);
+        } catch (err) {
+          console.error(`Lỗi xoá ảnh ${img.public_id} trên Cloudinary:`, err);
+        }
+      }
+
+      // Giữ lại những ảnh có trong imageOrders và cập nhật order của chúng
+      product.images = currentImages.filter(img => 
+        imageOrders.some(o => o.public_id === img.public_id)
+      );
+
       product.images.forEach(img => {
         const found = imageOrders.find(o => o.public_id === img.public_id);
         if (found && found.order !== undefined) {
           img.order = found.order;
         }
+      });
+    }
+
+    // 3. Thêm ảnh mới từ req.files
+    if (req.files && req.files.length > 0) {
+      const maxCurrentOrder = product.images.reduce((max, img) => Math.max(max, img.order || 0), -1);
+      req.files.forEach((file, index) => {
+        product.images.push({
+          url: file.path,
+          public_id: file.filename,
+          order: maxCurrentOrder + 1 + index
+        });
       });
     }
 

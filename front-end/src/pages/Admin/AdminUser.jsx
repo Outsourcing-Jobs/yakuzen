@@ -33,22 +33,26 @@ const AdminUser = () => {
   };
 
   const handleRoleChange = async (id, newRole) => {
+    setLoading(true);
     try {
       await axios.put(`/users/${id}`, { role: newRole });
       message.success('Cập nhật quyền thành công');
       fetchUsers();
     } catch (error) {
       message.error('Cập nhật thất bại');
+      setLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
+    setLoading(true);
     try {
       await axios.delete(`/users/${id}`);
       message.success('Đã xóa người dùng');
       fetchUsers();
     } catch (error) {
       message.error('Xóa thất bại');
+      setLoading(false);
     }
   };
 
