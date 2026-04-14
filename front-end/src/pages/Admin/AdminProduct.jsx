@@ -11,6 +11,7 @@ import {
   OrderedListOutlined, PictureOutlined 
 } from '@ant-design/icons';
 import axios from '../../utils/axios';
+import SafeImage from '../../components/Default/SafeImage';
 
 const { Title, Text } = Typography;
 
@@ -171,11 +172,9 @@ const AdminProduct = () => {
       render: (images) => (
         <Space>
           {images && images.length > 0 ? (
-            <Image 
+            <SafeImage 
               src={images[0].url} 
-              width={60} 
-              height={60} 
-              style={{ objectFit: 'cover', borderRadius: 8, border: '1px solid #f0f0f0' }} 
+              style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 8, border: '1px solid #f0f0f0' }} 
             />
           ) : (
             <div style={{ width: 60, height: 60, background: '#f5f5f5', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -356,7 +355,7 @@ const AdminProduct = () => {
                   <List.Item>
                     <Card
                       cover={
-                        <img
+                        <SafeImage
                           alt="product"
                           src={item.url}
                           style={{ height: 120, objectFit: 'cover' }}

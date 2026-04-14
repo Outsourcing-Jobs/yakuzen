@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from '../../utils/axios';
 
-const IMAGE_PLACEHOLDER = 'https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7';
+import SafeImage from '../../components/Default/SafeImage';
 
 const EdgyHome = () => {
     const navigate = useNavigate();
@@ -53,7 +53,7 @@ const EdgyHome = () => {
     }, []);
 
     const getItem = (pool, index) => {
-        if (!pool || pool.length === 0) return { url: IMAGE_PLACEHOLDER, slug: '#', name: 'Placeholder' };
+        if (!pool || pool.length === 0) return { url: null, slug: '#', name: 'Loading...' };
         return pool[index % pool.length];
     };
     return (
@@ -93,13 +93,13 @@ const EdgyHome = () => {
                                     to={`/product/${getItem(modelPool, 0).slug}`}
                                     style={{ display: 'block', height: '100%' }}
                                 >
-                                    <img
+                                    <SafeImage
                                         className="slice-img-bottom"
                                         src={getItem(modelPool, 1).url}
                                         alt={getItem(modelPool, 1).name}
                                     />
                                     <div className="slice-overlay">
-                                        <img
+                                        <SafeImage
                                             className="slice-img-top"
                                             src={getItem(modelPool, 0).url}
                                             alt={getItem(modelPool, 0).name}
@@ -109,9 +109,9 @@ const EdgyHome = () => {
                                 </Link>
                             ) : (
                                 <div style={{ height: '100%' }}>
-                                    <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                    <SafeImage className="slice-img-bottom" src={null} alt="Loading" />
                                     <div className="slice-overlay">
-                                        <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <SafeImage className="slice-img-top" src={null} alt="Loading" />
                                     </div>
                                 </div>
                             )}
@@ -124,13 +124,13 @@ const EdgyHome = () => {
                                         to={`/product/${getItem(modelPool, 2).slug}`}
                                         style={{ display: 'block', height: '100%' }}
                                     >
-                                        <img
+                                        <SafeImage
                                             className="slice-img-bottom"
                                             src={getItem(modelPool, 3).url}
                                             alt={getItem(modelPool, 3).name}
                                         />
                                         <div className="slice-overlay">
-                                            <img
+                                            <SafeImage
                                                 className="slice-img-top"
                                                 src={getItem(modelPool, 2).url}
                                                 alt={getItem(modelPool, 2).name}
@@ -139,9 +139,9 @@ const EdgyHome = () => {
                                     </Link>
                                 ) : (
                                     <div style={{ height: '100%' }}>
-                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <SafeImage className="slice-img-bottom" src={null} alt="Loading" />
                                         <div className="slice-overlay">
-                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                            <SafeImage className="slice-img-top" src={null} alt="Loading" />
                                         </div>
                                     </div>
                                 )}
@@ -152,13 +152,13 @@ const EdgyHome = () => {
                                         to={`/product/${getItem(modelPool, 4).slug}`}
                                         style={{ display: 'block', height: '100%' }}
                                     >
-                                        <img
+                                        <SafeImage
                                             className="slice-img-bottom"
                                             src={getItem(modelPool, 5).url}
                                             alt={getItem(modelPool, 5).name}
                                         />
                                         <div className="slice-overlay">
-                                            <img
+                                            <SafeImage
                                                 className="slice-img-top"
                                                 src={getItem(modelPool, 4).url}
                                                 alt={getItem(modelPool, 4).name}
@@ -167,9 +167,9 @@ const EdgyHome = () => {
                                     </Link>
                                 ) : (
                                     <div style={{ height: '100%' }}>
-                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <SafeImage className="slice-img-bottom" src={null} alt="Loading" />
                                         <div className="slice-overlay">
-                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                            <SafeImage className="slice-img-top" src={null} alt="Loading" />
                                         </div>
                                     </div>
                                 )}
@@ -206,13 +206,13 @@ const EdgyHome = () => {
                                 className="edgy-box edgy-illus-main slice-hover"
                                 style={{ flex: 2 }}
                             >
-                                <img
+                                <SafeImage
                                     className="slice-img-bottom"
                                     src={getItem(illusPool, 1).url}
                                     alt={getItem(illusPool, 1).name}
                                 />
                                 <div className="slice-overlay">
-                                    <img
+                                    <SafeImage
                                         className="slice-img-top"
                                         src={getItem(illusPool, 0).url}
                                         alt={getItem(illusPool, 0).name}
@@ -222,9 +222,9 @@ const EdgyHome = () => {
                             </Link>
                         ) : (
                             <div className="edgy-box edgy-illus-main slice-hover" style={{ flex: 2 }}>
-                                <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                <SafeImage className="slice-img-bottom" src={null} alt="Loading" />
                                 <div className="slice-overlay">
-                                    <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                    <SafeImage className="slice-img-top" src={null} alt="Loading" />
                                 </div>
                             </div>
                         )}
@@ -233,13 +233,13 @@ const EdgyHome = () => {
                             <div className="edgy-box edgy-illus-small slice-hover">
                                 {illusPool.length > 2 ? (
                                     <Link to={`/product/${getItem(illusPool, 2).slug}`}>
-                                        <img
+                                        <SafeImage
                                             className="slice-img-bottom"
                                             src={getItem(illusPool, 3).url}
                                             alt={getItem(illusPool, 3).name}
                                         />
                                         <div className="slice-overlay">
-                                            <img
+                                            <SafeImage
                                                 className="slice-img-top"
                                                 src={getItem(illusPool, 2).url}
                                                 alt={getItem(illusPool, 2).name}
@@ -248,9 +248,9 @@ const EdgyHome = () => {
                                     </Link>
                                 ) : (
                                     <>
-                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <SafeImage className="slice-img-bottom" src={null} alt="Loading" />
                                         <div className="slice-overlay">
-                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                            <SafeImage className="slice-img-top" src={null} alt="Loading" />
                                         </div>
                                     </>
                                 )}
@@ -258,13 +258,13 @@ const EdgyHome = () => {
                             <div className="edgy-box edgy-illus-small slice-hover">
                                 {illusPool.length > 4 ? (
                                     <Link to={`/product/${getItem(illusPool, 4).slug}`}>
-                                        <img
+                                        <SafeImage
                                             className="slice-img-bottom"
                                             src={getItem(illusPool, 5).url}
                                             alt={getItem(illusPool, 5).name}
                                         />
                                         <div className="slice-overlay">
-                                            <img
+                                            <SafeImage
                                                 className="slice-img-top"
                                                 src={getItem(illusPool, 4).url}
                                                 alt={getItem(illusPool, 4).name}
@@ -273,9 +273,9 @@ const EdgyHome = () => {
                                     </Link>
                                 ) : (
                                     <>
-                                        <img className="slice-img-bottom" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                        <SafeImage className="slice-img-bottom" src={null} alt="Loading" />
                                         <div className="slice-overlay">
-                                            <img className="slice-img-top" src={IMAGE_PLACEHOLDER} alt="Placeholder" />
+                                            <SafeImage className="slice-img-top" src={null} alt="Loading" />
                                         </div>
                                     </>
                                 )}

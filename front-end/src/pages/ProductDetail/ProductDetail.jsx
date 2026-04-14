@@ -5,6 +5,7 @@ import GlobalBackground from '../../components/Default/GlobalBackground';
 import axios from '../../utils/axios';
 import useExchangeRate from '../../hooks/useExchangeRate';
 import './ProductDetail.css';
+import SafeImage from '../../components/Default/SafeImage';
 
 const formatPrice = val => {
     if (!val) return '$0.00';
@@ -99,7 +100,7 @@ const ProductDetail = () => {
                     transition={{ duration: 0.5 }}
                 >
                     <div className="main-image-box edgy-box-dt">
-                        <img src={activeImage} alt={product.title} />
+                        <SafeImage src={activeImage} alt={product.title} />
                     </div>
 
                     {galleryItems.length > 1 && (
@@ -110,7 +111,7 @@ const ProductDetail = () => {
                                     className={`thumb-box edgy-box-dt ${activeImage === img ? 'active' : ''}`}
                                     onClick={() => setActiveImage(img)}
                                 >
-                                    <img src={img} alt={`${product.title} thumb ${idx}`} />
+                                    <SafeImage src={img} alt={`${product.title} thumb ${idx}`} />
                                 </div>
                             ))}
                         </div>
