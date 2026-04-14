@@ -3,7 +3,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #111; /* Consistent with the site's dark theme */
+    /* background: #111; Consistent with the site's dark theme */
 }
 
 .safe-image-loader {
