@@ -3,6 +3,7 @@ import { Button, Typography } from 'antd';
 import { HomeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import 'antd/dist/reset.css';
+import SafeImage from '../../components/Default/SafeImage';
 import './NotPoundPage.css';
 
 const { Title, Paragraph } = Typography;
@@ -11,7 +12,7 @@ const NotFoundPage = () => {
     return (
         <div className="notfound-container">
             <div className="notfound-content">
-                <img
+                <SafeImage
                     src="https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif"
                     alt="404 Not Found"
                     className="notfound-image"

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './FloatingContact.css';
 import { MessageOutlined } from '@ant-design/icons';
+import SafeImage from './SafeImage';
 
 const FloatingContact = () => {
     const [open, setOpen] = useState(false);
@@ -15,7 +16,7 @@ const FloatingContact = () => {
                     rel="noreferrer"
                     className="floating-icon floating-main"
                 >
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/960px-Icon_of_Zalo.svg.png" />
+                    <SafeImage src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Icon_of_Zalo.svg/960px-Icon_of_Zalo.svg.png" />
                 </a>
 
                 <a
@@ -24,7 +25,7 @@ const FloatingContact = () => {
                     rel="noreferrer"
                     className="floating-icon floating-main"
                 >
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/3840px-WhatsApp.svg.png" />
+                    <SafeImage src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/3840px-WhatsApp.svg.png" />
                 </a>
 
                 <a
@@ -33,7 +34,7 @@ const FloatingContact = () => {
                     rel="noreferrer"
                     className="floating-icon floating-main"
                 >
-                    <img src="https://lucas.vn/wp-content/uploads/2023/08/logo-fb-800x800.webp" />
+                    <SafeImage src="https://lucas.vn/wp-content/uploads/2023/08/logo-fb-800x800.webp" />
                 </a>
             </div>
             {/* )} */}

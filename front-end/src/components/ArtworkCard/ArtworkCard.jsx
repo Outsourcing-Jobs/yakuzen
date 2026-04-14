@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './ArtworkCard.css';
+import SafeImage from '../Default/SafeImage';
 
 const formatPrice = (val) => {
     if (!val) return '$0.00';
@@ -14,7 +15,7 @@ const ArtworkCard = ({ item }) => {
         <Link to={`/product/${item.slug}`} className="artwork-card-link">
             <div className="artwork-card edgy-box">
                 <div className="card-img-wrapper">
-                    <img src={item.coverImage} alt={item.title} />
+                    <SafeImage src={item.coverImage} alt={item.title} />
                     {/* <div className="card-overlay">
                         <span className="view-text">VIEW DETAILS 👁</span>
                     </div> */}

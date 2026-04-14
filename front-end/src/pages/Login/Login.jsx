@@ -7,6 +7,7 @@ import { MailOutlined, LockOutlined, ArrowRightOutlined } from '@ant-design/icon
 import { useDispatch } from 'react-redux';
 import axios from '../../utils/axios';
 import logo from '../../assets/vite.svg';
+import SafeImage from '../../components/Default/SafeImage';
 import './Login.css';
 
 const { Title, Text } = Typography;
@@ -63,7 +64,7 @@ const Login = ({ setIsAdmin }) => {
             <div className="login-form-side">
                 <div className="login-card-v2">
                     <div className="login-logo-v2">
-                        <img src='https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7' alt="ArtVerse Logo" />
+                        <SafeImage src='https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7' alt="ArtVerse Logo" />
                         <Title level={3} style={{ margin: '16px 0 8px' }}>Welcome Back!</Title>
                         <Text type="secondary">Continue your creative journey</Text>
                     </div>

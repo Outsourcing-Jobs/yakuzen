@@ -4,6 +4,7 @@ import './HomePage.css';
 import GlobalBackground from '../../components/Default/GlobalBackground';
 import { Link } from 'react-router-dom';
 import axios from '../../utils/axios';
+import SafeImage from '../../components/Default/SafeImage';
 
 const staticCategories = [
     { name: 'TOS', path: '/tos' },
@@ -105,7 +106,7 @@ const HomePage = () => {
                         <div className="hp-avatar-ring hp-avatar-ring--2" />
                         <div className="hp-avatar">
                             <span className="hp-avatar__placeholder">
-                                <img src={heroData.avatar?.url} alt="Avatar" />
+                                <SafeImage src={heroData.avatar?.url} alt="Avatar" />
                             </span>
                         </div>
                         {/* paw print deco */}
@@ -224,14 +225,9 @@ const HomePage = () => {
                                     >
                                         <div className="hp-work-card__img">
                                             <div className="hp-work-card__placeholder">
-                                                <img
+                                                <SafeImage
                                                     src={work.imgUrl}
                                                     alt={work.title}
-                                                    style={{
-                                                        width: '100%',
-                                                        height: '100%',
-                                                        objectFit: 'cover',
-                                                    }}
                                                 />
                                             </div>
                                             <div className="hp-work-card__overlay">
