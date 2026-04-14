@@ -17,7 +17,7 @@ const seedHero = async () => {
 
         const initialHero = new Hero({
             avatar: {
-                url: 'https://toladich.carrd.co/assets/images/image01.gif?v=e46ef6f7',
+                url: 'https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyNjJ3OTVvdmY4eTk0ajlxNjRudnN1bzJleDNqN2JjbjB1Zng4b3NpdSZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/L05HgB2h6qICDs5Sms/200.gif',
                 public_id: 'initial_avatar',
             },
             title: 'DICH ✦ DIGITAL ARTIST',
