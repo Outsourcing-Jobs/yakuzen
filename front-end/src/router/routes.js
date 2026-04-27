@@ -13,9 +13,11 @@ import AdminCategory from '../pages/Admin/AdminCategory';
 import AdminUser from '../pages/Admin/AdminUser';
 import AdminProduct from '../pages/Admin/AdminProduct';
 import AdminHero from '../pages/Admin/AdminHero';
+import AdminRecentWork from '../pages/Admin/AdminRecentWork';
 
 export const langRoutes = [
     {
+
         path: '/',
         page: HomePage,
         isShowHeader: false,
@@ -84,7 +86,12 @@ export const globalRoutes = [
             {
                 path: 'hero',
                 page: AdminHero
+            },
+            {
+                path: 'recent-works',
+                page: AdminRecentWork
             }
+
         ]
     },
     {

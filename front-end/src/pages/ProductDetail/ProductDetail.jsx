@@ -133,7 +133,7 @@ const ProductDetail = () => {
 
                     <div className="detail-pricing">
                         <div className="price-box usd">
-                            <span className="price-label">USD ($)</span>
+                            <span className="price-label">Price</span>
                             <span className="price-value">{product.price}</span>
                         </div>
                         {exchangeRate && (
