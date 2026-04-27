@@ -137,7 +137,7 @@ const AdminLayout = () => {
         </Content>
 
         <Footer className="admin-footer">
-          Yakuzen Premium Admin Portal ©2026 - Tinh hoa thảo dược Việt
+          Yakuzen Admin ©2026
         </Footer>
       </Layout>
     </Layout>

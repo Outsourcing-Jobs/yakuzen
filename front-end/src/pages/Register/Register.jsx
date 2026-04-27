@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Form, Input, Button, Typography, Space, Divider } from 'antd';
-import { UserOutlined, MailOutlined, LockOutlined, RocketOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Typography, Space, Divider, Checkbox } from 'antd';
+import { UserOutlined, MailOutlined, LockOutlined, RocketOutlined, KeyOutlined } from '@ant-design/icons';
 import axios from '../../utils/axios';
 import logo from '../../assets/vite.svg';
 import SafeImage from '../../components/Default/SafeImage';
@@ -14,20 +14,24 @@ const { Title, Text } = Typography;
 const Register = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const onFinish = async (values) => {
         setLoading(true);
         try {
-            const { username, identifier, password } = values;
+            const { username, identifier, password, adminKey } = values;
             const isEmail = identifier.includes('@');
             const data = {
                 email: isEmail ? identifier : undefined,
                 phone: !isEmail ? identifier : undefined,
                 password,
-                name: username
+                name: username,
+                role: isAdmin ? 'admin' : 'user',
+                adminKey: isAdmin ? adminKey : undefined
             };
 
             const response = await axios.post('/auth/register', data);
+
 
             if (response.status === 201) {
                 toast.success('Joined the Artist Alliance successfully! Time to create your first masterpiece.');
@@ -115,6 +119,31 @@ const Register = () => {
                                 style={{ borderRadius: '10px' }}
                             />
                         </Form.Item>
+
+                        <div style={{ marginBottom: '20px' }}>
+                            <Checkbox 
+                                checked={isAdmin} 
+                                onChange={(e) => setIsAdmin(e.target.checked)}
+                                style={{ fontSize: '14px', color: '#6366f1' }}
+                            >
+                                Register as Admin
+                            </Checkbox>
+                        </div>
+
+                        {isAdmin && (
+                             <Form.Item
+                                name="adminKey"
+                                label={<Text strong>Admin Secret Key</Text>}
+                                rules={[{ required: true, message: 'Admin Key is required for studio access!' }]}
+                            >
+                                <Input.Password
+                                    prefix={<KeyOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                    placeholder="Enter your administrative key"
+                                    style={{ borderRadius: '10px', border: '1px solid #6366f1' }}
+                                />
+                            </Form.Item>
+                        )}
+
 
                         <Text type="secondary" style={{ fontSize: '13px', display: 'block', marginBottom: '20px' }}>
                             By registering, you agree to our <Link to="/tos" style={{ color: '#6366f1' }}>Community Guidelines</Link> and Art Copyright Policy.
