@@ -4,10 +4,10 @@ import './ArtworkCard.css';
 import SafeImage from '../Default/SafeImage';
 
 const formatPrice = (val) => {
-    if (!val) return '$0.00';
+    if (!val) return '0.00';
     const s = String(val);
-    if (s.startsWith('$')) return s;
-    return `$${s}`;
+    if (s.startsWith('')) return s;
+    return `${s}`;
 };
 
 const ArtworkCard = ({ item }) => {

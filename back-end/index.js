@@ -41,6 +41,8 @@ const productRoutes = require('./routes/product.routes');
 const userRoutes = require('./routes/user.routes');
 const settingRoutes = require('./routes/setting.routes');
 const heroRoutes = require('./routes/hero.route');
+const recentWorkRoutes = require('./routes/recentWork.routes');
+const dashboardRoutes = require('./routes/dashboard.routes');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/tos', tosRoutes);
@@ -49,3 +51,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/settings', settingRoutes);
 app.use('/api/hero', heroRoutes);
+app.use('/api/recent-works', recentWorkRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+
+

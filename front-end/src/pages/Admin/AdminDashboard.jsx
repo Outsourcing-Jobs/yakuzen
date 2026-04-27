@@ -18,10 +18,21 @@ const AdminDashboard = () => {
     const [rate, setRate] = React.useState(null);
     const [newRate, setNewRate] = React.useState('');
     const [loading, setLoading] = React.useState(false);
+    const [stats, setStats] = React.useState({ users: 0, products: 0, categories: 0 });
 
     React.useEffect(() => {
         fetchRate();
+        fetchStats();
     }, []);
+
+    const fetchStats = async () => {
+        try {
+            const res = await axios.get('/dashboard/stats');
+            setStats(res.data);
+        } catch (error) {
+            console.error('Error fetching stats:', error);
+        }
+    };
 
     const fetchRate = async () => {
         try {
@@ -32,6 +43,7 @@ const AdminDashboard = () => {
             console.error('Error fetching rate:', error);
         }
     };
+
 
     const handleUpdateRate = async () => {
         setLoading(true);
@@ -59,7 +71,7 @@ const AdminDashboard = () => {
                     <Card style={{ borderLeft: '5px solid #10b981', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
                         <Statistic
                             title={<Text strong style={{ color: '#64748b' }}>TỔNG NGƯỜI DÙNG</Text>}
-                            value={0}
+                            value={stats.users}
                             valueStyle={{ color: '#10b981', fontWeight: 'bold' }}
                             prefix={<UserOutlined />}
                         />
@@ -69,21 +81,20 @@ const AdminDashboard = () => {
                     <Card style={{ borderLeft: '5px solid #f59e0b', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
                         <Statistic
                             title={<Text strong style={{ color: '#64748b' }}>SẢN PHẨM HIỆN CÓ</Text>}
-                            value={0}
+                            value={stats.products}
                             valueStyle={{ color: '#f59e0b', fontWeight: 'bold' }}
                             prefix={<ShoppingCartOutlined />}
                         />
                     </Card>
                 </Col>
+
                 <Col xs={24} sm={8}>
                     <Card style={{ borderLeft: '5px solid #3b82f6', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
                         <Statistic
-                            title={<Text strong style={{ color: '#64748b' }}>DOANH THU UY TÍN</Text>}
-                            value={0}
-                            precision={0}
+                            title={<Text strong style={{ color: '#64748b' }}>DANH MỤC HIỆN CÓ</Text>}
+                            value={stats.categories}
                             valueStyle={{ color: '#3b82f6', fontWeight: 'bold' }}
-                            prefix={<DollarOutlined />}
-                            suffix="VNĐ"
+                            prefix={<AppstoreAddOutlined />}
                         />
                     </Card>
                 </Col>
@@ -154,11 +165,11 @@ const AdminDashboard = () => {
 
             <Row gutter={[24, 24]}>
                 <Col xs={24} md={12}>
-                    <Card 
-                        title={<Space><SettingOutlined style={{ color: '#3b82f6' }} /> Cấu hình Tỉ giá ($1 = ? VND)</Space>} 
+                    <Card
+                        title={<Space><SettingOutlined style={{ color: '#3b82f6' }} /> Cấu hình Tỉ giá ($1 = ? VND)</Space>}
                         hoverable
                     >
-                         <div style={{ padding: '20px 0' }}>
+                        <div style={{ padding: '20px 0' }}>
                             <Statistic
                                 title={<Text strong style={{ color: '#64748b' }}>TỈ GIÁ HIỆN TẠI</Text>}
                                 value={rate}
@@ -170,16 +181,16 @@ const AdminDashboard = () => {
                             <Space direction="vertical" style={{ width: '100%' }}>
                                 <Text type="secondary">Cập nhật tỉ giá mới:</Text>
                                 <Space.Compact style={{ width: '100%' }}>
-                                    <Input 
-                                        type="number" 
-                                        value={newRate} 
-                                        onChange={(e) => setNewRate(e.target.value)} 
-                                        placeholder="Nhập tỉ giá mới..." 
+                                    <Input
+                                        type="number"
+                                        value={newRate}
+                                        onChange={(e) => setNewRate(e.target.value)}
+                                        placeholder="Nhập tỉ giá mới..."
                                     />
                                     <Button type="primary" loading={loading} onClick={handleUpdateRate}>CẬP NHẬT</Button>
                                 </Space.Compact>
                             </Space>
-                         </div>
+                        </div>
                     </Card>
                 </Col>
             </Row>

@@ -228,7 +228,7 @@ export default function TosPage() {
             {tosData.ctaLinks && tosData.ctaLinks.length > 0 && (
               <div className="tos-cta-section visible">
                 <p className="tos-cta-label">
-                  ONCE YOU'VE FINISHED READING, PLEASE CONTINUE HERE.
+                  {/* ONCE YOU'VE FINISHED READING, PLEASE CONTINUE HERE. */}
                 </p>
                 <div className="tos-cta-buttons">
                   {tosData.ctaLinks.map((link, idx) => (

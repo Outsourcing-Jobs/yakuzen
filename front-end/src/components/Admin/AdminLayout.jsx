@@ -11,8 +11,10 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   BellOutlined,
-  GlobalOutlined
+  GlobalOutlined,
+  OrderedListOutlined
 } from '@ant-design/icons';
+
 import { useNavigate, Outlet, useLocation, Link } from 'react-router-dom';
 import './AdminLayout.css';
 
@@ -29,9 +31,11 @@ const AdminLayout = () => {
     { label: 'Dashboard', key: '/admin-dashboard', icon: <PieChartOutlined /> },
     { label: 'Sản phẩm', key: '/admin-dashboard/products', icon: <ShoppingOutlined /> },
     { label: 'Danh mục', key: '/admin-dashboard/categories', icon: <DesktopOutlined /> },
+    { label: 'Quản lý Recent Works', key: '/admin-dashboard/recent-works', icon: <OrderedListOutlined /> },
     { label: 'Quản lý Hero', key: '/admin-dashboard/hero', icon: <DesktopOutlined /> },
     { label: 'Người dùng', key: '/admin-dashboard/users', icon: <TeamOutlined /> },
     { label: 'Cài đặt TOS', key: '/admin-dashboard/tos', icon: <FileOutlined /> },
+
   ];
 
   const handleMenuClick = (e) => {

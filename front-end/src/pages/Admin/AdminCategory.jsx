@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { 
-  Table, Button, Space, Modal, Form, Input, 
-  message, Popconfirm, Card, Typography, 
-  Tag, Divider 
+import {
+  Table, Button, Space, Modal, Form, Input,
+  message, Popconfirm, Card, Typography,
+  Tag, Divider
 } from 'antd';
-import { 
-  PlusOutlined, EditOutlined, DeleteOutlined, 
-  AppstoreOutlined, ContainerOutlined 
+import {
+  PlusOutlined, EditOutlined, DeleteOutlined,
+  AppstoreOutlined, ContainerOutlined
 } from '@ant-design/icons';
 import axios from '../../utils/axios';
 
@@ -83,21 +83,21 @@ const AdminCategory = () => {
   };
 
   const columns = [
-    { 
-      title: 'Tên danh mục', 
-      dataIndex: 'name', 
+    {
+      title: 'Tên danh mục',
+      dataIndex: 'name',
       key: 'name',
       render: (text) => <Text strong style={{ fontSize: '15px' }}>{text}</Text>
     },
-    { 
-      title: 'Slug', 
-      dataIndex: 'slug', 
+    {
+      title: 'Slug',
+      dataIndex: 'slug',
       key: 'slug',
       render: (slug) => <Tag color="orange" style={{ borderRadius: '4px' }}>{slug}</Tag>
     },
-    { 
-      title: 'Mô tả', 
-      dataIndex: 'description', 
+    {
+      title: 'Mô tả',
+      dataIndex: 'description',
       key: 'description',
       ellipsis: true,
       render: (desc) => <Text type="secondary">{desc || 'Không có mô tả'}</Text>
@@ -105,13 +105,13 @@ const AdminCategory = () => {
     {
       title: 'Hành động',
       key: 'action',
-      width: 150,
+      width: 200,
       render: (_, record) => (
         <Space size="middle">
-          <Button 
-            type="primary" 
-            ghost 
-            icon={<EditOutlined />} 
+          <Button
+            type="primary"
+            ghost
+            icon={<EditOutlined />}
             onClick={() => handleEdit(record)}
           >
             Sửa
@@ -126,9 +126,9 @@ const AdminCategory = () => {
 
   return (
     <div style={{ padding: '0px' }}>
-      <Card 
-        style={{ 
-          marginBottom: 24, 
+      <Card
+        style={{
+          marginBottom: 24,
           background: 'linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%)',
           borderRadius: '16px',
           border: 'none'
@@ -143,14 +143,14 @@ const AdminCategory = () => {
               Tổ chức các sản phẩm theo nhóm để khách hàng dễ dàng tìm kiếm
             </Text>
           </div>
-          <Button 
-            type="primary" 
+          <Button
+            type="primary"
             size="large"
-            icon={<PlusOutlined />} 
+            icon={<PlusOutlined />}
             onClick={handleAdd}
-            style={{ 
-              background: 'white', 
-              color: '#1d4ed8', 
+            style={{
+              background: 'white',
+              color: '#1d4ed8',
               border: 'none',
               fontWeight: 'bold',
               height: 'auto',
@@ -163,10 +163,10 @@ const AdminCategory = () => {
         </div>
       </Card>
 
-      <Table 
-        columns={columns} 
-        dataSource={categories} 
-        rowKey="_id" 
+      <Table
+        columns={columns}
+        dataSource={categories}
+        rowKey="_id"
         loading={loading}
         pagination={{ pageSize: 10 }}
         style={{ background: 'white', borderRadius: '16px', overflow: 'hidden' }}
@@ -189,14 +189,14 @@ const AdminCategory = () => {
         centered
       >
         <Form form={form} layout="vertical" style={{ paddingTop: '20px' }}>
-          <Form.Item 
-            name="name" 
-            label={<Text strong>Tên danh mục</Text>} 
+          <Form.Item
+            name="name"
+            label={<Text strong>Tên danh mục</Text>}
             rules={[{ required: true, message: 'Vui lòng nhập tên danh mục' }]}
           >
             <Input size="large" placeholder="Ví dụ: Trà thảo mộc, Nhân sâm..." />
           </Form.Item>
-          
+
           <Form.Item name="description" label={<Text strong>Mô tả</Text>}>
             <Input.TextArea rows={4} placeholder="Mô tả ngắn gọn về danh mục này..." />
           </Form.Item>

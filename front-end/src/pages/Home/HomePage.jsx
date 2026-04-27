@@ -63,7 +63,8 @@ const HomePage = () => {
 
         const fetchRecentWorks = async () => {
             try {
-                const response = await axios.get('/products?limit=10');
+                const response = await axios.get('/recent-works');
+
                 const mappedWorks = response.data.map(product => ({
                     id: product._id,
                     slug: product.slug,
