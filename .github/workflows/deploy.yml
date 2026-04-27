@@ -55,8 +55,6 @@ jobs:
           vercel-args: '--prod'
           vercel-version: latest
 
-          working-directory: ./front-end
-
 
   deploy-backend:
     name: Deploy Backend to Render
