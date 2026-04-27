@@ -54,4 +54,16 @@ app.use('/api/hero', heroRoutes);
 app.use('/api/recent-works', recentWorkRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.error('SERVER_ERROR:', err);
+  res.status(err.status || 500).json({
+    message: err.message || 'Internal Server Error',
+    error: process.env.NODE_ENV === 'development' ? err : {}
+  });
+});
+
+module.exports = app;
+
+
 

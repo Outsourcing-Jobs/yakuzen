@@ -21,10 +21,12 @@ const Login = ({ setIsAdmin }) => {
         setLoading(true);
         try {
             const response = await axios.post('/auth/login', values);
-            const { token, user } = response.data;
+            const { token, refreshToken, user } = response.data;
 
             localStorage.setItem('token', token);
+            localStorage.setItem('refreshToken', refreshToken);
             localStorage.setItem('user', JSON.stringify(user));
+
 
             toast.success('Welcome back to the studio, Artist!');
 

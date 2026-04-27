@@ -87,11 +87,81 @@ exports.login = async (req, res) => {
       },
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET || 'yakuzen_secret_key', { expiresIn: '7d' });
+    // Tạo Access Token (Ngắn hạn - vd: 1h)
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET || 'yakuzen_secret_key', { 
+      expiresIn: process.env.JWT_EXPIRES_IN || '1h' 
+    });
 
-    res.json({ token, user: { id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role } });
+    // Tạo Refresh Token (Dài hạn - vd: 30d)
+    const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || 'yakuzen_refresh_secret_key', { 
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN || '30d' 
+    });
+
+    // Lưu Refresh Token vào DB
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.json({ 
+        token: accessToken, 
+        refreshToken,
+        user: { id: user._id, name: user.name, email: user.email, phone: user.phone, role: user.role } 
+    });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ message: 'Lỗi server', error: error.message });
+  }
+};
+
+// Refresh Token
+exports.refreshToken = async (req, res) => {
+  try {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+      return res.status(401).json({ message: 'Refresh Token là bắt buộc' });
+    }
+
+    // Kiểm tra token trong DB
+    const user = await User.findOne({ refreshToken });
+    if (!user) {
+      return res.status(403).json({ message: 'Refresh Token không hợp lệ hoặc đã bị thu hồi' });
+    }
+
+    // Verify token
+    jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'yakuzen_refresh_secret_key', (err, decoded) => {
+      if (err) {
+        return res.status(403).json({ message: 'Refresh Token đã hết hạn, vui lòng đăng nhập lại' });
+      }
+
+      // Tạo Access Token mới
+      const payload = {
+        user: {
+          id: user._id,
+          role: user.role,
+        },
+      };
+
+      const accessToken = jwt.sign(payload, process.env.JWT_SECRET || 'yakuzen_secret_key', { 
+        expiresIn: process.env.JWT_EXPIRES_IN || '1h' 
+      });
+
+      res.json({ token: accessToken });
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Lỗi server', error: error.message });
+  }
+};
+
+// Đăng xuất
+exports.logout = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (user) {
+      user.refreshToken = '';
+      await user.save();
+    }
+    res.json({ message: 'Đăng xuất thành công' });
+  } catch (error) {
     res.status(500).json({ message: 'Lỗi server', error: error.message });
   }
 };
