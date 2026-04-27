@@ -5,13 +5,23 @@ const User = require('../models/User');
 // Đăng ký đơn giản
 exports.register = async (req, res) => {
   try {
-    const { email, phone, password, name } = req.body;
+    const { email, phone, password, name, role, adminKey } = req.body;
 
     if (!email && !phone) {
       return res.status(400).json({ message: 'Vui lòng cung cấp Email hoặc Số điện thoại' });
     }
     if (!password) {
       return res.status(400).json({ message: 'Vui lòng cung cấp mật khẩu' });
+    }
+
+    // Role check for admin
+    let userRole = 'user';
+    if (role === 'admin') {
+      const serverAdminKey = process.env.ADMIN_SECRET_KEY;
+      if (adminKey !== serverAdminKey) {
+        return res.status(403).json({ message: 'Admin Secret Key không chính xác' });
+      }
+      userRole = 'admin';
     }
 
     // Kiểm tra tồn tại
@@ -32,9 +42,11 @@ exports.register = async (req, res) => {
       phone: phone || undefined,
       password: hashedPassword,
       name,
+      role: userRole,
     });
 
     await newUser.save();
+
 
     res.status(201).json({ message: 'Đăng ký thành công', user: { id: newUser._id, name: newUser.name, role: newUser.role } });
   } catch (error) {
