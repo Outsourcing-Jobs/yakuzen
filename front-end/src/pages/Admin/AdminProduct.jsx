@@ -12,6 +12,32 @@ import {
 } from '@ant-design/icons';
 import axios from '../../utils/axios';
 import SafeImage from '../../components/Default/SafeImage';
+import SunEditor from 'suneditor-react';
+import 'suneditor/dist/css/suneditor.min.css';
+
+const RichTextEditor = ({ value, onChange, placeholder }) => {
+    return (
+        <SunEditor
+            setContents={value}
+            onChange={onChange}
+            setOptions={{
+                buttonList: [
+                    ["font", "fontSize", "formatBlock"],
+                    ["bold", "underline", "italic", "strike"],
+                    ["fontColor", "hiliteColor"],
+                    ["align", "list", "lineHeight"],
+                    ["link", "image", "video"],
+                    ["fullScreen", "showBlocks", "codeView"],
+                    ["preview"]
+                ],
+                minHeight: "200px",
+                height: "auto",
+                width: "100%"
+            }}
+            placeholder={placeholder}
+        />
+    );
+};
 
 const { Title, Text } = Typography;
 
@@ -317,7 +343,7 @@ const AdminProduct = () => {
               </Row>
 
               <Form.Item name="description" label={<Text strong>Mô tả chi tiết</Text>}>
-                <Input.TextArea rows={4} placeholder="Mô tả về công dụng, thành phần..." />
+                <RichTextEditor placeholder="Mô tả về công dụng, thành phần..." />
               </Form.Item>
             </Col>
             
