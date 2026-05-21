@@ -146,7 +146,7 @@ const ProductDetail = () => {
                     </div>
 
                     <div className="detail-desc">
-                        <p>{product.description}</p>
+                        <div dangerouslySetInnerHTML={{ __html: product.description }} />
                     </div>
 
                     <button className="edgy-button buy-btn">
