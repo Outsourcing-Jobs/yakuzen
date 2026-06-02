@@ -63,14 +63,14 @@ const HomePage = () => {
 
         const fetchRecentWorks = async () => {
             try {
-                const response = await axios.get('/recent-works');
+                const response = await axios.get('/recent-work-images');
 
-                const mappedWorks = response.data.map(product => ({
-                    id: product._id,
-                    slug: product.slug,
-                    title: product.name,
-                    tag: product.category?.name?.toUpperCase() || 'UNCATEGORIZED',
-                    imgUrl: product.images && product.images.length > 0 ? product.images[0].url : '',
+                const mappedWorks = response.data.map(work => ({
+                    id: work._id,
+                    title: work.title || '',
+                    tag: work.description?.toUpperCase() || '',
+                    imgUrl: work.image?.url || '',
+                    link: work.link || '',
                 }));
                 setRecentWorks(mappedWorks);
             } catch (error) {
@@ -216,32 +216,49 @@ const HomePage = () => {
                             { breakpoint: 600, settings: { slidesToShow: 1 } },
                         ]}
                     >
-                        {recentWorks.concat(recentWorks).map((work, i) => (
-                            <div key={`${work.id}-${i}`} className="hp-work-slide">
-                                <Link to={`/product/${work.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                    <div
-                                        className={`hp-work-card ${activeWork === i ? 'hp-work-card--active' : ''}`}
-                                        onMouseEnter={() => setActiveWork(i)}
-                                        onMouseLeave={() => setActiveWork(null)}
-                                    >
-                                        <div className="hp-work-card__img">
-                                            <div className="hp-work-card__placeholder">
-                                                <SafeImage
-                                                    src={work.imgUrl}
-                                                    alt={work.title}
-                                                />
-                                            </div>
-                                            <div className="hp-work-card__overlay">
-                                                <span className="hp-work-card__tag">{work.tag}</span>
-                                                <span className="hp-work-card__title">{work.title}</span>
-                                            </div>
-                                            <div className="hp-work-card__corner hp-work-card__corner--tl" />
-                                            <div className="hp-work-card__corner hp-work-card__corner--br" />
+                        {recentWorks.concat(recentWorks).map((work, i) => {
+                            const CardContent = (
+                                <div
+                                    className={`hp-work-card ${activeWork === i ? 'hp-work-card--active' : ''}`}
+                                    onMouseEnter={() => setActiveWork(i)}
+                                    onMouseLeave={() => setActiveWork(null)}
+                                    style={{ cursor: work.link ? 'pointer' : 'default' }}
+                                >
+                                    <div className="hp-work-card__img">
+                                        <div className="hp-work-card__placeholder">
+                                            <SafeImage
+                                                src={work.imgUrl}
+                                                alt={work.title}
+                                            />
                                         </div>
+                                        <div className="hp-work-card__overlay">
+                                            {work.tag && <span className="hp-work-card__tag">{work.tag}</span>}
+                                            <span className="hp-work-card__title">{work.title}</span>
+                                        </div>
+                                        <div className="hp-work-card__corner hp-work-card__corner--tl" />
+                                        <div className="hp-work-card__corner hp-work-card__corner--br" />
                                     </div>
-                                </Link>
-                            </div>
-                        ))}
+                                </div>
+                            );
+
+                            return (
+                                <div key={`${work.id}-${i}`} className="hp-work-slide">
+                                    {work.link ? (
+                                        work.link.startsWith('http') ? (
+                                            <a href={work.link} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                                {CardContent}
+                                            </a>
+                                        ) : (
+                                            <Link to={work.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                                {CardContent}
+                                            </Link>
+                                        )
+                                    ) : (
+                                        CardContent
+                                    )}
+                                </div>
+                            );
+                        })}
                     </Carousel>
                 </div>
 
